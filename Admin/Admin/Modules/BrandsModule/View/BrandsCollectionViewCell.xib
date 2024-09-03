@@ -19,8 +19,8 @@
                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ME-Dg-6RZ">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="99A-MY-ugR">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="151"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="99A-MY-ugR">
+                                <rect key="frame" x="0.0" y="10" width="200" height="141"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mahgoub" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqi-32-OpQ">
                                 <rect key="frame" x="0.0" y="151" width="200" height="49"/>
@@ -36,7 +36,7 @@
                             <constraint firstAttribute="trailing" secondItem="99A-MY-ugR" secondAttribute="trailing" id="ZgY-gY-XSr"/>
                             <constraint firstItem="Yqi-32-OpQ" firstAttribute="leading" secondItem="7ME-Dg-6RZ" secondAttribute="leading" id="by2-mW-lTA"/>
                             <constraint firstAttribute="bottom" secondItem="Yqi-32-OpQ" secondAttribute="bottom" id="jCD-RJ-6vV"/>
-                            <constraint firstItem="99A-MY-ugR" firstAttribute="top" secondItem="7ME-Dg-6RZ" secondAttribute="top" id="mye-UK-atU"/>
+                            <constraint firstItem="99A-MY-ugR" firstAttribute="top" secondItem="7ME-Dg-6RZ" secondAttribute="top" constant="10" id="mye-UK-atU"/>
                             <constraint firstItem="99A-MY-ugR" firstAttribute="leading" secondItem="7ME-Dg-6RZ" secondAttribute="leading" id="s6j-cG-ViZ"/>
                             <constraint firstAttribute="bottom" secondItem="99A-MY-ugR" secondAttribute="bottom" constant="49" id="vPl-aG-h73"/>
                         </constraints>

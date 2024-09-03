@@ -20,7 +20,7 @@ class SigninViewController: UIViewController {
     
     @IBAction func didSelectSignin(_ sender: Any) {
         if (usernameTextField.text == username && passwordTextField.text == password) {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "TabBar") as? TabBarController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "nav") as? nav
             guard let vc = vc else { return }
             
             vc.modalPresentationStyle = .fullScreen

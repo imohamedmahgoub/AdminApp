@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BrandsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    let viewModel = BrandsViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
@@ -22,18 +24,24 @@ class BrandsViewController: UIViewController {
 }
 extension BrandsViewController : UICollectionViewDelegate,UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return viewModel.brandsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! BrandsCollectionViewCell
-        cell.brandImage.image = UIImage(named: "1")
-        cell.brandName.text = "ADIDAS"
+        cell.brandImage.image = UIImage(named: viewModel.brandsArray[indexPath.row].brandImage)
+        cell.brandName.text = viewModel.brandsArray[indexPath.row].brandName
         cell.layer.cornerRadius = 20
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 5, left: 10, bottom: 10, right: 10)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ProductsViewController") as? ProductsViewController
+        guard let vc = vc else { return  }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func setupFlowLayout() {
         let flowLayout = UICollectionViewFlowLayout()
