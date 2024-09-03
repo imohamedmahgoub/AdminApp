@@ -11,10 +11,14 @@ class ProductsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let viewModel = ProductsViewModel()
+    let indicator = UIActivityIndicatorView(style: .medium)
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        indicator.center = view.center
+        indicator.startAnimating()
+        view.addSubview(indicator)
         
         let nib = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
@@ -22,6 +26,7 @@ class ProductsViewController: UIViewController {
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         }
     }

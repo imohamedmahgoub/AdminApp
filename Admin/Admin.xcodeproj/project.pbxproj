@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A452C87734A00055718 /* Internet Connectivity.swift */; };
 		056B56862C85D782006D4348 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056B56852C85D782006D4348 /* ProductsViewController.swift */; };
 		056B56892C85D84C006D4348 /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056B56872C85D84C006D4348 /* ProductsTableViewCell.swift */; };
 		056B568A2C85D84C006D4348 /* ProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056B56882C85D84C006D4348 /* ProductsTableViewCell.xib */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05556A452C87734A00055718 /* Internet Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internet Connectivity.swift"; sourceTree = "<group>"; };
 		056B56852C85D782006D4348 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		056B56872C85D84C006D4348 /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
 		056B56882C85D84C006D4348 /* ProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsTableViewCell.xib; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05556A442C87731C00055718 /* Internet Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				05556A452C87734A00055718 /* Internet Connectivity.swift */,
+			);
+			path = "Internet Connectivity";
+			sourceTree = "<group>";
+		};
 		056B56822C85D738006D4348 /* ProductsModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 		056B56912C860DE0006D4348 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				05556A442C87731C00055718 /* Internet Connectivity */,
 				056B56922C860E03006D4348 /* Network Manager */,
 			);
 			path = Services;
@@ -360,6 +371,7 @@
 				058412A22C851A5000347BFC /* BrandsViewController.swift in Sources */,
 				05747E0A2C875538000D1DA6 /* AllProductsViewModel.swift in Sources */,
 				0584129B2C85163900347BFC /* SigninViewController.swift in Sources */,
+				05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */,
 				056B568C2C85DD7D006D4348 /* nav.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,11 +10,15 @@ import Kingfisher
 
 class AllProductsViewController: UIViewController {
     let viewModel = AllProductsViewModel()
+    let indicator = UIActivityIndicatorView(style: .medium)
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        indicator.center = view.center
+        indicator.startAnimating()
+        view.addSubview(indicator)
         
         let nib = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
@@ -22,6 +26,7 @@ class AllProductsViewController: UIViewController {
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         }
     }
