@@ -16,6 +16,8 @@
 		056B56972C860E53006D4348 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 056B56962C860E53006D4348 /* Alamofire */; };
 		056B569C2C8618D6006D4348 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 056B569B2C8618D6006D4348 /* Kingfisher */; };
 		056B569E2C865FD1006D4348 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056B569D2C865FD1006D4348 /* ProductsViewModel.swift */; };
+		05747E082C875458000D1DA6 /* AllProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05747E072C875458000D1DA6 /* AllProductsViewController.swift */; };
+		05747E0A2C875538000D1DA6 /* AllProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05747E092C875538000D1DA6 /* AllProductsViewModel.swift */; };
 		058412812C85113300347BFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058412802C85113300347BFC /* AppDelegate.swift */; };
 		058412832C85113300347BFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058412822C85113300347BFC /* SceneDelegate.swift */; };
 		058412882C85113300347BFC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 058412872C85113300347BFC /* Base */; };
@@ -37,6 +39,8 @@
 		056B568F2C85FEF2006D4348 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		056B56932C860E18006D4348 /* Network Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network Manager.swift"; sourceTree = "<group>"; };
 		056B569D2C865FD1006D4348 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
+		05747E072C875458000D1DA6 /* AllProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsViewController.swift; sourceTree = "<group>"; };
+		05747E092C875538000D1DA6 /* AllProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsViewModel.swift; sourceTree = "<group>"; };
 		0584127D2C85113300347BFC /* Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		058412802C85113300347BFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		058412822C85113300347BFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +128,40 @@
 			path = "Network Manager";
 			sourceTree = "<group>";
 		};
+		05747E032C8753DA000D1DA6 /* TabBarModules */ = {
+			isa = PBXGroup;
+			children = (
+				05747E042C8753F6000D1DA6 /* AllProductsModule */,
+				0584129E2C851A0900347BFC /* BrandsModule */,
+			);
+			path = TabBarModules;
+			sourceTree = "<group>";
+		};
+		05747E042C8753F6000D1DA6 /* AllProductsModule */ = {
+			isa = PBXGroup;
+			children = (
+				05747E062C87542B000D1DA6 /* ViewModel */,
+				05747E052C875423000D1DA6 /* View */,
+			);
+			path = AllProductsModule;
+			sourceTree = "<group>";
+		};
+		05747E052C875423000D1DA6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				05747E072C875458000D1DA6 /* AllProductsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		05747E062C87542B000D1DA6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				05747E092C875538000D1DA6 /* AllProductsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		058412742C85113300347BFC = {
 			isa = PBXGroup;
 			children = (
@@ -177,8 +215,8 @@
 		058412962C8515A400347BFC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				05747E032C8753DA000D1DA6 /* TabBarModules */,
 				056B56822C85D738006D4348 /* ProductsModule */,
-				0584129E2C851A0900347BFC /* BrandsModule */,
 				058412972C8515B100347BFC /* SigninModule */,
 			);
 			path = Modules;
@@ -316,9 +354,11 @@
 				056B56892C85D84C006D4348 /* ProductsTableViewCell.swift in Sources */,
 				058412812C85113300347BFC /* AppDelegate.swift in Sources */,
 				058412832C85113300347BFC /* SceneDelegate.swift in Sources */,
+				05747E082C875458000D1DA6 /* AllProductsViewController.swift in Sources */,
 				058412A72C851F2200347BFC /* TabBarController.swift in Sources */,
 				056B56902C85FEF2006D4348 /* Response.swift in Sources */,
 				058412A22C851A5000347BFC /* BrandsViewController.swift in Sources */,
+				05747E0A2C875538000D1DA6 /* AllProductsViewModel.swift in Sources */,
 				0584129B2C85163900347BFC /* SigninViewController.swift in Sources */,
 				056B568C2C85DD7D006D4348 /* nav.swift in Sources */,
 			);

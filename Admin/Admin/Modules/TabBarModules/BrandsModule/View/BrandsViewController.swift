@@ -40,7 +40,7 @@ extension BrandsViewController : UICollectionViewDelegate,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ProductsViewController") as? ProductsViewController
         guard let vc = vc else { return  }
-        
+        vc.viewModel.vendor = viewModel.brandsArray[indexPath.row].brandName
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func setupFlowLayout() {
