@@ -31,6 +31,13 @@ class ProductsViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func didSelectAdd(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductViewController") as? AddProductViewController
+        guard let vc = vc else { return }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
