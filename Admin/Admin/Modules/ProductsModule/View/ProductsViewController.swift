@@ -31,7 +31,6 @@ class ProductsViewController: UIViewController {
         }
     }
     
-    
     @IBAction func didSelectAdd(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductViewController") as? AddProductViewController
         guard let vc = vc else { return }
@@ -47,17 +46,30 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductsTableViewCell
-        let url = URL(string: "\(viewModel.productArray[indexPath.row].images.first?.src ?? "")")
-        cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "1"))
+        let url = URL(string: "\(viewModel.productArray[indexPath.row].images?.first?.src ?? "")")
+        cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
         cell.productVersionLabel.text = viewModel.productArray[indexPath.row].title
         cell.productCompany.text = viewModel.productArray[indexPath.row].vendor
-        cell.productPrice.text = viewModel.productArray[indexPath.row].variants.first?.price
-        cell.productQuantity.text = "\(viewModel.productArray[indexPath.row].variants.first?.inventoryQuantity ?? 10) in Stock"
+        cell.productPrice.text = "\(viewModel.productArray[indexPath.row].variants?.first?.price ?? "") $"
+        cell.productQuantity.text = "\(viewModel.productArray[indexPath.row].variants?.first?.inventoryQuantity ?? 10) in Stock"
         
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let product = viewModel.productArray[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+            
+            self.viewModel.deleteProduct(productId: product.id ?? 0 )
+            self.viewModel.productArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
 }

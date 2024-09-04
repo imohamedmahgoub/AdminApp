@@ -9,15 +9,15 @@ import Foundation
 
 class AddProductViewModel {
     var networkService : NetworkServiceProtocol?
+    var parameters : [String:[String:Any]] = ["product":[:]]
     func createProduct(completion: @escaping () -> Void) {
         networkService = NetworkService()
-        networkService?.postData(path: "products", parameters: [:], postFlag: true, handler: { (response, error) in
+        networkService?.postData(path: "products", parameters: parameters, postFlag: true, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()
             } else if let response = response {
                print("Data Uploaded : \(response)")
-
                 completion()
             }
         })
