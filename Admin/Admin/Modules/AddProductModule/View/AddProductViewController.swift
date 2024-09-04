@@ -19,7 +19,9 @@ class AddProductViewController: UIViewController {
     @IBOutlet weak var quantityTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        vendorTextField.text = viewModel.vendor
+        vendorTextField.isEnabled = false
     }
     @IBAction func didSelectSave(_ sender: Any) {
         viewModel.parameters["product"]?["title"] = titleTextField.text

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0532CDDB2C88A148002660F8 /* BrandsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532CDDA2C88A148002660F8 /* BrandsResponse.swift */; };
 		05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A452C87734A00055718 /* Internet Connectivity.swift */; };
 		05556A4C2C87AED600055718 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4B2C87AED600055718 /* AddProductViewController.swift */; };
 		05556A4E2C87BF2C00055718 /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0532CDDA2C88A148002660F8 /* BrandsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsResponse.swift; sourceTree = "<group>"; };
 		05556A452C87734A00055718 /* Internet Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internet Connectivity.swift"; sourceTree = "<group>"; };
 		05556A4B2C87AED600055718 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0532CDD92C88A133002660F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0532CDDA2C88A148002660F8 /* BrandsResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		05556A442C87731C00055718 /* Internet Connectivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +292,7 @@
 		0584129E2C851A0900347BFC /* BrandsModule */ = {
 			isa = PBXGroup;
 			children = (
+				0532CDD92C88A133002660F8 /* Model */,
 				058412A02C851A3A00347BFC /* ViewModel */,
 				0584129F2C851A2D00347BFC /* View */,
 			);
@@ -396,6 +407,7 @@
 				056B56892C85D84C006D4348 /* ProductsTableViewCell.swift in Sources */,
 				058412812C85113300347BFC /* AppDelegate.swift in Sources */,
 				058412832C85113300347BFC /* SceneDelegate.swift in Sources */,
+				0532CDDB2C88A148002660F8 /* BrandsResponse.swift in Sources */,
 				05747E082C875458000D1DA6 /* AllProductsViewController.swift in Sources */,
 				058412A72C851F2200347BFC /* TabBarController.swift in Sources */,
 				056B56902C85FEF2006D4348 /* Response.swift in Sources */,

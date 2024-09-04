@@ -9,6 +9,7 @@ import Foundation
 
 class AddProductViewModel {
     var networkService : NetworkServiceProtocol?
+    var vendor = ""
     var parameters : [String:[String:Any]] = ["product":[:]]
     func createProduct(completion: @escaping () -> Void) {
         networkService = NetworkService()

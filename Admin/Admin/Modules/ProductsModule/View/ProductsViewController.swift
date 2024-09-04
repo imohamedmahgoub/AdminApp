@@ -34,6 +34,8 @@ class ProductsViewController: UIViewController {
     @IBAction func didSelectAdd(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductViewController") as? AddProductViewController
         guard let vc = vc else { return }
+        vc.viewModel.vendor = viewModel.vendor
+        print(viewModel.vendor)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

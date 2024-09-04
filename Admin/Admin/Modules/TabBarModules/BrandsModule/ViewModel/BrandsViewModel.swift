@@ -8,11 +8,21 @@
 import Foundation
 
 class BrandsViewModel {
-
-    var brandsArray = [Brand(brandName: "ADIDAS", brandImage: "Adidas"),Brand(brandName: "VANS", brandImage: "Vans"),Brand(brandName: "SUPRA", brandImage: "Supra"),Brand(brandName: "TIMBERLAND", brandImage: "timperland"),Brand(brandName: "ASICS TIGER", brandImage: "asics"),Brand(brandName: "CONVERSE", brandImage: "Converse"),Brand(brandName: "DR MARTENS", brandImage: "Dr martens"),Brand(brandName: "FLEX FIT", brandImage: "FlexFit"),Brand(brandName: "NIKE", brandImage: "Nike"),Brand(brandName: "PALLADIUM", brandImage: "Palladium"),Brand(brandName: "PUMA", brandImage: "Puma"),Brand(brandName: "HERSCHEL", brandImage: "Herschel")]
+    var brandsArray : [SmartCollection] = []
+    var networkService : NetworkServiceProtocol?
+    func getData(completion: @escaping () -> Void){
+        networkService = NetworkService()
+        networkService?.getData(path:"smart_collections", parameters: [:], model: BrandsResponse.self) { (response: BrandsResponse?, error: Error?) in
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
+                completion()
+            } else if let response = response {
+                //print("Data received: \(response)")
+                self.brandsArray = response.smartCollections ?? []
+                completion()
+            }
+        }
+    }
 }
 
-struct Brand {
-    let brandName : String
-    let brandImage : String
-}
+
