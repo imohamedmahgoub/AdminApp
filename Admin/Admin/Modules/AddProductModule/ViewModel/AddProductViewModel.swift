@@ -10,10 +10,10 @@ import Foundation
 class AddProductViewModel {
     var networkService : NetworkServiceProtocol?
     var vendor = ""
-    var parameters : [String:[String:Any]] = ["product":[:]]
+    var parameters: [String: Any] = [:]
     func createProduct(completion: @escaping () -> Void) {
         networkService = NetworkService()
-        networkService?.postData(path: "products", parameters: parameters, postFlag: true, handler: { (response, error) in
+        networkService?.postData(path: "products", parameters: ["product":parameters], postFlag: true, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()

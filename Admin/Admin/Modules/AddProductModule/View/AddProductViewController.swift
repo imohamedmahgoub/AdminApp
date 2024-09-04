@@ -8,7 +8,7 @@
 import UIKit
 
 class AddProductViewController: UIViewController {
-
+    
     let viewModel = AddProductViewModel()
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var vendorTextField: UITextField!
@@ -24,14 +24,31 @@ class AddProductViewController: UIViewController {
         vendorTextField.isEnabled = false
     }
     @IBAction func didSelectSave(_ sender: Any) {
-        viewModel.parameters["product"]?["title"] = titleTextField.text
-        viewModel.parameters["product"]?["vendor"] = vendorTextField.text
-        viewModel.parameters["product"]?["product_type"] = typeTextField.text
-        viewModel.parameters["product"]?["body_html"] = descriptionTextView.text
-        viewModel.parameters["product"]?["price"] = priceTextField.text
-        viewModel.parameters["product"]?["inventory_quantity"] = quantityTextField.text
-        viewModel.parameters["product"]?["src"] = imageUrlTextField.text
-        viewModel.parameters["product"]?["status"] = "active"
+        guard let title = titleTextField.text, !title.isEmpty,
+              let vendor = vendorTextField.text, !vendor.isEmpty,
+              let productType = typeTextField.text, !productType.isEmpty,
+              let description = descriptionTextView.text, !description.isEmpty,
+              let price = priceTextField.text, !price.isEmpty,
+              let quantity = quantityTextField.text, !quantity.isEmpty,
+              let imageUrl = imageUrlTextField.text, !imageUrl.isEmpty
+        else {
+            let alert = UIAlertController(title: "Failed", message: "Please fill in all the fields", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .destructive)
+            alert.addAction(dismissAction)
+            self.present(alert, animated: true)
+            return
+        }
+        viewModel.parameters = [
+            "title": title,
+            "vendor": vendor,
+            "product_type": productType,
+            "body_html": description,
+            "variants": [
+                ["price": price, "inventory_quantity": Int(quantity) ?? 0]
+            ],
+            "image": ["src": imageUrl],
+            "status": "active"
+        ]
         viewModel.createProduct {
             DispatchQueue.main.async {
                 self.navigationController?.popViewController(animated: true)
