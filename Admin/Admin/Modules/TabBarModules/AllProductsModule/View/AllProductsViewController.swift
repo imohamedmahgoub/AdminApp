@@ -31,7 +31,7 @@ class AllProductsViewController: UIViewController {
         }
     }
     
-
+    
 }
 extension AllProductsViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,6 +51,13 @@ extension AllProductsViewController : UITableViewDelegate , UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(identifier: "ProductDetailsViewController") as? ProductDetailsViewController
+        guard let vc else { return }
+        vc.viewModel.productArray = self.viewModel.productArray
+        vc.viewModel.imagesArray = self.viewModel.productArray[indexPath.row].images ?? []
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let product = viewModel.productArray[indexPath.row]
