@@ -10,6 +10,8 @@ class ProductDetailsViewModel {
     var networkService : NetworkServiceProtocol?
     var productArray : [Product] = []
     var imagesArray : [Image] = []
+    var sizeArray : [String] = []
+    var colorArray : [String] = []
     var timer: Timer?
     var index = 0
     var parameters: [String: Any] = [:]

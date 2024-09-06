@@ -57,6 +57,13 @@ extension AllProductsViewController : UITableViewDelegate , UITableViewDataSourc
         guard let vc else { return }
         vc.viewModel.productArray = self.viewModel.productArray
         vc.viewModel.imagesArray = self.viewModel.productArray[indexPath.row].images ?? []
+        vc.index = indexPath.row
+        if let size = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .size }) {
+            vc.viewModel.sizeArray = size.values ?? ["NO"]
+        }
+        if let color = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .color }) {
+            vc.viewModel.colorArray = color.values ?? ["NO"]
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -69,7 +69,7 @@ struct Image: Codable {
 // MARK: - Option
 struct Option: Codable {
     let id, productID: Int?
-    let name: String?
+    let name: Name?
     let position: Int?
     let values: [String]?
 
@@ -78,6 +78,10 @@ struct Option: Codable {
         case productID = "product_id"
         case name, position, values
     }
+}
+enum Name: String, Codable {
+    case color = "Color"
+    case size = "Size"
 }
 
 // MARK: - Variant

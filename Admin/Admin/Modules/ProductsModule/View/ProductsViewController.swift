@@ -51,7 +51,7 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
         let url = URL(string: "\(viewModel.productArray[indexPath.row].images?.first?.src ?? "")")
         cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
         cell.productVersionLabel.text = viewModel.productArray[indexPath.row].title
-        cell.productCompany.text = viewModel.productArray[indexPath.row].vendor
+        cell.productCompany.text = "\(viewModel.productArray[indexPath.row].vendor ?? ""), \(viewModel.productArray[indexPath.row].productType ?? "")"
         cell.productPrice.text = "\(viewModel.productArray[indexPath.row].variants?.first?.price ?? "") $"
         cell.productQuantity.text = "\(viewModel.productArray[indexPath.row].variants?.first?.inventoryQuantity ?? 10) in Stock"
         
@@ -65,6 +65,14 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
         guard let vc else { return }
         vc.viewModel.productArray = self.viewModel.productArray
         vc.viewModel.imagesArray = self.viewModel.productArray[indexPath.row].images ?? []
+        vc.index = indexPath.row
+        if let size = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .size }) {
+            vc.viewModel.sizeArray = size.values ?? ["NO"]
+        }
+        if let color = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .color }) {
+            vc.viewModel.colorArray = color.values ?? ["NO"]
+            
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

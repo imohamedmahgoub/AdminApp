@@ -11,6 +11,9 @@
 		050F022E2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050F022D2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift */; };
 		050F02302C89D59A00FC7030 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050F022F2C89D59A00FC7030 /* ProductDetailsViewModel.swift */; };
 		0532CDDB2C88A148002660F8 /* BrandsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532CDDA2C88A148002660F8 /* BrandsResponse.swift */; };
+		053598A52C8B2A73007FA23E /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 053598A42C8B2A73007FA23E /* Cosmos */; };
+		053598A72C8B3811007FA23E /* SizeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053598A62C8B3811007FA23E /* SizeCollectionViewCell.swift */; };
+		053598A92C8B6B04007FA23E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053598A82C8B6B04007FA23E /* ColorCollectionViewCell.swift */; };
 		05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A452C87734A00055718 /* Internet Connectivity.swift */; };
 		05556A4C2C87AED600055718 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4B2C87AED600055718 /* AddProductViewController.swift */; };
 		05556A4E2C87BF2C00055718 /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */; };
@@ -43,6 +46,8 @@
 		050F022D2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		050F022F2C89D59A00FC7030 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		0532CDDA2C88A148002660F8 /* BrandsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsResponse.swift; sourceTree = "<group>"; };
+		053598A62C8B3811007FA23E /* SizeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeCollectionViewCell.swift; sourceTree = "<group>"; };
+		053598A82C8B6B04007FA23E /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		05556A452C87734A00055718 /* Internet Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internet Connectivity.swift"; sourceTree = "<group>"; };
 		05556A4B2C87AED600055718 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
@@ -75,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				053598A52C8B2A73007FA23E /* Cosmos in Frameworks */,
 				056B569C2C8618D6006D4348 /* Kingfisher in Frameworks */,
 				056B56972C860E53006D4348 /* Alamofire in Frameworks */,
 			);
@@ -97,6 +103,8 @@
 			children = (
 				050F022B2C89D56300FC7030 /* ProductDetailsViewController.swift */,
 				050F022D2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift */,
+				053598A62C8B3811007FA23E /* SizeCollectionViewCell.swift */,
+				053598A82C8B6B04007FA23E /* ColorCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -369,6 +377,7 @@
 			packageProductDependencies = (
 				056B56962C860E53006D4348 /* Alamofire */,
 				056B569B2C8618D6006D4348 /* Kingfisher */,
+				053598A42C8B2A73007FA23E /* Cosmos */,
 			);
 			productName = Admin;
 			productReference = 0584127D2C85113300347BFC /* Admin.app */;
@@ -401,6 +410,7 @@
 			packageReferences = (
 				056B56952C860E53006D4348 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				056B569A2C8618D6006D4348 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				053598A32C8B2A73007FA23E /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			productRefGroup = 0584127E2C85113300347BFC /* Products */;
 			projectDirPath = "";
@@ -437,12 +447,14 @@
 				050F022C2C89D56300FC7030 /* ProductDetailsViewController.swift in Sources */,
 				056B569E2C865FD1006D4348 /* ProductsViewModel.swift in Sources */,
 				056B56862C85D782006D4348 /* ProductsViewController.swift in Sources */,
+				053598A92C8B6B04007FA23E /* ColorCollectionViewCell.swift in Sources */,
 				05556A4C2C87AED600055718 /* AddProductViewController.swift in Sources */,
 				056B56892C85D84C006D4348 /* ProductsTableViewCell.swift in Sources */,
 				058412812C85113300347BFC /* AppDelegate.swift in Sources */,
 				058412832C85113300347BFC /* SceneDelegate.swift in Sources */,
 				0532CDDB2C88A148002660F8 /* BrandsResponse.swift in Sources */,
 				05747E082C875458000D1DA6 /* AllProductsViewController.swift in Sources */,
+				053598A72C8B3811007FA23E /* SizeCollectionViewCell.swift in Sources */,
 				058412A72C851F2200347BFC /* TabBarController.swift in Sources */,
 				056B56902C85FEF2006D4348 /* Response.swift in Sources */,
 				05556A4E2C87BF2C00055718 /* AddProductViewModel.swift in Sources */,
@@ -683,6 +695,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		053598A32C8B2A73007FA23E /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 25.0.1;
+			};
+		};
 		056B56952C860E53006D4348 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -702,6 +722,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		053598A42C8B2A73007FA23E /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 053598A32C8B2A73007FA23E /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
+		};
 		056B56962C860E53006D4348 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 056B56952C860E53006D4348 /* XCRemoteSwiftPackageReference "Alamofire" */;
