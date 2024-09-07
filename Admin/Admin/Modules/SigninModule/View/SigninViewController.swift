@@ -8,6 +8,7 @@
 import UIKit
 
 class SigninViewController: UIViewController {
+    @IBOutlet weak var showPasswordButtonOutlet: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     let username = "Admin"
@@ -44,5 +45,15 @@ class SigninViewController: UIViewController {
         }
     }
     
-
+    
+    @IBAction func didSelectShowPassword(_ sender: Any) {
+        if passwordTextField.isSecureTextEntry == true {
+            passwordTextField.isSecureTextEntry = false
+            showPasswordButtonOutlet.setImage(UIImage(systemName: "eye"), for: .normal)
+        }else{
+            passwordTextField.isSecureTextEntry = true
+            showPasswordButtonOutlet.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        }
+    }
+    
 }

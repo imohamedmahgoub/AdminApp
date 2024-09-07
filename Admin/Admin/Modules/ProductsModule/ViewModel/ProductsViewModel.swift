@@ -17,7 +17,7 @@ class ProductsViewModel {
                 print("Error fetching data: \(error.localizedDescription)")
                 completion()
             } else if let response = response {
-                // print("Data received: \(response)")
+                 //print("Data received: \(response)")
                 self.productArray = response.products ?? []
                 self.productArray = self.productArray.filter{$0.vendor == self.vendor}
                 completion()

@@ -15,19 +15,19 @@ class ProductDetailsViewModel {
     var timer: Timer?
     var index = 0
     var parameters: [String: Any] = [:]
-    func updateProduct(completion: @escaping () -> Void) {
-        networkService = NetworkService()
-        networkService?.postData(path: "products", parameters: ["product":parameters], postFlag: false, handler: { (response, error) in
-            if let error = error {
-                print("Error Upload data: \(error.localizedDescription)")
-                completion()
-            } else if let response = response {
-               print("Data Uploaded : \(response)")
-                completion()
-            }
-        })
-        
-    }
+//    func updateProduct(completion: @escaping () -> Void) {
+//        networkService = NetworkService()
+//        networkService?.postData(path: "products", parameters: ["product":parameters], postFlag: false, handler: { (response, error) in
+//            if let error = error {
+//                print("Error Upload data: \(error.localizedDescription)")
+//                completion()
+//            } else if let response = response {
+//               print("Data Uploaded : \(response)")
+//                completion()
+//            }
+//        })
+//        
+//    }
 
 
 }

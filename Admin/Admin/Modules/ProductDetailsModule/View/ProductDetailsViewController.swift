@@ -26,8 +26,13 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var closeAddVariantViewOutlet: UIButton!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productQuantityLabel: UILabel!
+    @IBOutlet weak var updatePriceTextField: UITextField!
+    @IBOutlet weak var editPriceButtonOutlet: UIButton!
+    @IBOutlet weak var updateQuantityTextField: UITextField!
+    @IBOutlet weak var editQuantityButtonOutlet: UIButton!
     var viewModel = ProductDetailsViewModel()
     var index = 0
+    var counter = 0
     var selectedSizeIndex : Int? = nil
     var selectedColorIndex: Int? = nil
     override func viewDidLoad() {
@@ -44,15 +49,12 @@ class ProductDetailsViewController: UIViewController {
     func setupCollectionViews() {
         imagesCollectionView.dataSource = self
         imagesCollectionView.delegate = self
-        imagesCollectionView.reloadData()
         
         sizeCollectionView.dataSource = self
         sizeCollectionView.delegate = self
-        sizeCollectionView.reloadData()
         
         colorCollectionView.dataSource = self
         colorCollectionView.delegate = self
-        colorCollectionView.reloadData()
         
         startAutoScroll()
         addVariantOutlet.layer.cornerRadius = 10.0
@@ -60,6 +62,8 @@ class ProductDetailsViewController: UIViewController {
         addVariantView.isHidden = true
         addVariantView.layer.cornerRadius = 10.0
         closeAddVariantViewOutlet.layer.cornerRadius = 10.0
+        updatePriceTextField.isHidden = true
+        updateQuantityTextField.isHidden = true
     }
     
     @IBAction func didSelectAddVariant(_ sender: Any) {
@@ -70,6 +74,29 @@ class ProductDetailsViewController: UIViewController {
         addVariantView.isHidden = true
     }
     
+    @IBAction func didSelectEditPrice(_ sender: Any) {
+        if updatePriceTextField.isHidden == true {
+            updatePriceTextField.isHidden = false
+        }else{
+            updatePriceTextField.isHidden = true
+        }
+        if updatePriceTextField.text != "" {
+            productPriceLabel.text = updatePriceTextField.text
+        }
+
+    }
+    
+    @IBAction func didSelectEditQuantity(_ sender: Any) {
+        if updateQuantityTextField.isHidden == true {
+            updateQuantityTextField.isHidden = false
+        }else{
+            updateQuantityTextField.isHidden = true
+        }
+        if updateQuantityTextField.text != "" {
+            productQuantityLabel.text = "\(updateQuantityTextField.text ?? "") in Stock"
+        }
+        
+    }
     @IBAction func didSelectCloseAddVariantView(_ sender: Any) {
         addSizeTextField.text = ""
         addColorTextfield.text = ""
@@ -86,6 +113,7 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
         case colorCollectionView:
             return viewModel.colorArray.count
         default:
+            pageControl.numberOfPages = viewModel.imagesArray.count
             return viewModel.imagesArray.count
         }
     }
@@ -93,31 +121,16 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView {
-        case sizeCollectionView :
+        case sizeCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SizeCollectionViewCell
-            cell.layer.cornerRadius = 10.0
             cell.productSize.text = viewModel.sizeArray[indexPath.row]
-            cell.productSize.layer.cornerRadius = 5.0
-            if indexPath.row == selectedSizeIndex {
-                cell.layer.borderWidth = 3.0
-                cell.layer.borderColor = UIColor.systemBlue.cgColor
-            } else {
-                cell.productSize.layer.borderWidth = 0.0
-                cell.productSize.layer.borderColor = UIColor.clear.cgColor
-            }
+            updateCellAppearance(cell: cell, isSelected: indexPath.row == selectedSizeIndex)
             return cell
-        case colorCollectionView :
+            
+        case colorCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ColorCollectionViewCell
-            cell.layer.cornerRadius = 10.0
             cell.productColor.text = viewModel.colorArray[indexPath.row]
-            cell.productColor.layer.cornerRadius = 5.0
-            if indexPath.row == selectedColorIndex {
-                cell.layer.borderWidth = 3.0
-                cell.layer.borderColor = UIColor.systemBlue.cgColor
-            } else {
-                cell.productColor.layer.borderWidth = 0.0
-                cell.productColor.layer.borderColor = UIColor.clear.cgColor
-            }
+            updateCellAppearance(cell: cell, isSelected: indexPath.row == selectedColorIndex)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductDetailsCollectionViewCell
@@ -131,43 +144,61 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case sizeCollectionView :
-            return CGSize(width: 30, height: 60)
+            return CGSize(width: 30, height: 40)
         case colorCollectionView :
-            return CGSize(width: 50, height: 60)
+            return CGSize(width: 50, height: 40)
         default:
             return CGSize(width: imagesCollectionView.frame.width, height: imagesCollectionView.frame.height)
         }
     }
     
     func startAutoScroll() {
-        viewModel.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(autoScrollCollectionView), userInfo: nil, repeats: true)
+        viewModel.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(autoScrollCollectionView), userInfo: nil, repeats: true)
     }
     
     @objc func autoScrollCollectionView() {
-        if viewModel.index < viewModel.imagesArray.count - 1{
-            viewModel.index += 1
-        }else{
+        if viewModel.index >= viewModel.imagesArray.count{
             viewModel.index = 0
         }
-        pageControl.numberOfPages = viewModel.imagesArray.count
-        pageControl.currentPage =  viewModel.index
         imagesCollectionView.scrollToItem(at: IndexPath(item: viewModel.index, section: 0), at: .centeredHorizontally, animated: true)
+        pageControl.currentPage =  viewModel.index
+        viewModel.index += 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
-        case sizeCollectionView :
-            sizeCollectionView.deselectItem(at: indexPath, animated: true)
-            selectedSizeIndex = indexPath.row
+        case sizeCollectionView:
+            if selectedSizeIndex == indexPath.row {
+                // Deselect if already selected
+                selectedSizeIndex = nil
+            } else {
+                selectedSizeIndex = indexPath.row
+            }
             sizeCollectionView.reloadData()
-            return
+            
         case colorCollectionView:
-            colorCollectionView.deselectItem(at: indexPath, animated: true)
-            selectedColorIndex = indexPath.row
+            if selectedColorIndex == indexPath.row {
+                // Deselect if already selected
+                selectedColorIndex = nil
+            } else {
+                selectedColorIndex = indexPath.row
+            }
             colorCollectionView.reloadData()
+            
         default:
+//            print("\(indexPath.item), \(indexPath.section), bbbb")
             break
         }
     }
-    
+    func updateCellAppearance(cell: UICollectionViewCell, isSelected: Bool) {
+        if isSelected {
+            cell.layer.borderWidth = 3.0
+            cell.layer.borderColor = UIColor.systemBlue.cgColor
+            cell.layer.cornerRadius = 10.0
+        } else {
+            cell.layer.borderWidth = 0.0
+            cell.layer.borderColor = UIColor.clear.cgColor
+            cell.layer.cornerRadius = 10.0
+        }
+    }
 }
 

@@ -23,6 +23,15 @@ class ProductsViewController: UIViewController {
         let nib = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
         
+//        viewModel.getData {
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//                self.indicator.stopAnimating()
+//            }
+//        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()

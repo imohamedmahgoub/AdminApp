@@ -30,8 +30,6 @@ class AllProductsViewController: UIViewController {
             }
         }
     }
-    
-    
 }
 extension AllProductsViewController : UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

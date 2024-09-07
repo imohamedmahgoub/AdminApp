@@ -46,7 +46,7 @@ class AddProductViewController: UIViewController {
             "variants": [
                 ["price": price, "inventory_quantity": Int(quantity) ?? 0]
             ],
-            "image": ["src": imageUrl],
+            "images": [["src" : "\(imageUrl)"]],
             "status": "active"
         ]
         viewModel.createProduct {
