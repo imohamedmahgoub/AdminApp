@@ -11,7 +11,7 @@ import Foundation
 class InternetConnection{
    static func hasInternetConnect() -> Bool {
        guard let url = URL(string: "https://www.google.com") else { return false }
-       let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 1)
+       let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 3)
        let semaphore = DispatchSemaphore(value: 0)
        var success = false
        

@@ -62,7 +62,7 @@ class NetworkService: NetworkServiceProtocol{
         AF.request("\(baseUrl)\(path).json", method: .delete, headers: headers).response { response in
             switch response.result{
             case .success(let data):
-                print(data!)
+                print("Success")
             case .failure(let error):
                 print(error.localizedDescription)
             }

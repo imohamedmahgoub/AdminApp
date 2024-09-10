@@ -23,12 +23,6 @@ class ProductsViewController: UIViewController {
         let nib = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
         
-//        viewModel.getData {
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//                self.indicator.stopAnimating()
-//            }
-//        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,7 +38,6 @@ class ProductsViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductViewController") as? AddProductViewController
         guard let vc = vc else { return }
         vc.viewModel.vendor = viewModel.vendor
-        print(viewModel.vendor)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

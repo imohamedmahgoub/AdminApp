@@ -10,5 +10,5 @@ import UIKit
 class SizeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var productSize: UILabel!
-    
+    @IBOutlet weak var didSelectSize: UIButton!
 }

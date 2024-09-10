@@ -23,6 +23,15 @@ class AllProductsViewController: UIViewController {
         let nib = UINib(nibName: "ProductsTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
         
+        viewModel.getLocationLevelData {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.indicator.stopAnimating()
+            }
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -38,14 +47,15 @@ extension AllProductsViewController : UITableViewDelegate , UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProductsTableViewCell
-        let url = URL(string: "\(viewModel.productArray[indexPath.row].images?.first?.src ?? "")")
-        cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
-        cell.productVersionLabel.text = viewModel.productArray[indexPath.row].title
-        cell.productCompany.text = viewModel.productArray[indexPath.row].vendor
-        cell.productPrice.text = viewModel.productArray[indexPath.row].variants?.first?.price
-        cell.productQuantity.text = "\(viewModel.productArray[indexPath.row].variants?.first?.inventoryQuantity ?? 10) in Stock"
+        let product = viewModel.productArray[indexPath.row]
         
-        return cell
+            let url = URL(string: "\(product.images?.first?.src ?? "")")
+            cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
+            cell.productVersionLabel.text = product.title
+            cell.productCompany.text = product.vendor
+            cell.productPrice.text = product.variants?.first?.price
+            cell.productQuantity.text = "\(product.variants?.first?.inventoryQuantity ?? 10) in Stock"
+            return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200

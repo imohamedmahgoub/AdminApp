@@ -7,6 +7,8 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
+import RxCocoa
 
 class ProductDetailsViewController: UIViewController {
     
@@ -30,9 +32,13 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var editPriceButtonOutlet: UIButton!
     @IBOutlet weak var updateQuantityTextField: UITextField!
     @IBOutlet weak var editQuantityButtonOutlet: UIButton!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var saveAllUpdatesOutlet: UIButton!
     var viewModel = ProductDetailsViewModel()
+    var disposeBag = DisposeBag()
     var index = 0
-    var counter = 0
+    var variantIndex = 0
+    var variantItemId = 0
     var selectedSizeIndex : Int? = nil
     var selectedColorIndex: Int? = nil
     override func viewDidLoad() {
@@ -45,6 +51,12 @@ class ProductDetailsViewController: UIViewController {
         productBrand.text = "\(viewModel.productArray[index].vendor ?? ""), \(viewModel.productArray[index].productType ?? "")"
         productPriceLabel.text = "\(viewModel.productArray[index].variants?.first?.price ?? "")$"
         productQuantityLabel.text = "\(viewModel.productArray[index].variants?.first?.inventoryQuantity ?? 0) in Stock"
+        descriptionTextView.text = viewModel.productArray[index].bodyHTML
+        viewModel.id = viewModel.productArray[index].id ?? 0
+    }
+    func setupVariantDetails(ProductIndex : Int?,variantIndex : Int?){
+        viewModel.variantId = viewModel.productArray[ProductIndex ?? 0].variants?.first(where: {$0.position == variantIndex})?.id ?? 404
+        print(viewModel.variantId)
     }
     func setupCollectionViews() {
         imagesCollectionView.dataSource = self
@@ -59,9 +71,12 @@ class ProductDetailsViewController: UIViewController {
         startAutoScroll()
         addVariantOutlet.layer.cornerRadius = 10.0
         saveOutlet.layer.cornerRadius = 5.0
-        addVariantView.isHidden = true
         addVariantView.layer.cornerRadius = 10.0
         closeAddVariantViewOutlet.layer.cornerRadius = 10.0
+        descriptionTextView.layer.cornerRadius = 10.0
+        saveAllUpdatesOutlet.layer.cornerRadius = 10.0
+        
+        addVariantView.isHidden = true
         updatePriceTextField.isHidden = true
         updateQuantityTextField.isHidden = true
     }
@@ -78,24 +93,72 @@ class ProductDetailsViewController: UIViewController {
         if updatePriceTextField.isHidden == true {
             updatePriceTextField.isHidden = false
         }else{
-            updatePriceTextField.isHidden = true
+            guard let price = updatePriceTextField.text , !price.isEmpty
+                    // let quantity = Int(updateQuantityTextField.text ?? "")
+            else { return  }
+            let alerrt = UIAlertController(title: "Updating Product's price", message: "Are you sure to save", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+                
+                self.viewModel.parameters = [
+                    "variant" : [
+                        "id": self.viewModel.variantId,
+                        "price": price,
+                        "metafields": [
+                            [
+                                "type": "single_line_text_field",
+                                "namespace": "global"
+                            ]
+                        ]
+                    ]
+                ]
+                self.viewModel.updateProduct {
+                    DispatchQueue.main.async {
+                        self.updatePriceTextField.isHidden = true
+                    }
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+            alerrt.addAction(okAction)
+            alerrt.addAction(cancelAction)
+            self.present(alerrt, animated: true)
         }
         if updatePriceTextField.text != "" {
-            productPriceLabel.text = updatePriceTextField.text
+            productPriceLabel.text = "\(updatePriceTextField.text ?? "").00 $"
         }
-
     }
     
     @IBAction func didSelectEditQuantity(_ sender: Any) {
         if updateQuantityTextField.isHidden == true {
             updateQuantityTextField.isHidden = false
         }else{
-            updateQuantityTextField.isHidden = true
+            guard let quantity = Int(updateQuantityTextField.text ?? "")
+            else { return  }
+            print(variantItemId)
+            let alerrt = UIAlertController(title: "Updating Product's quantity", message: "Are you sure to save", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+                
+                self.viewModel.quantityParameters = [
+                    "inventory_level" : [
+                        "set" :  [ [], // Params
+                                   ["location_id" : 72712781961, "inventory_item_id" : self.variantItemId, "available" : quantity] ]// Body
+                    ]
+                ]
+                self.viewModel.updateProduct {
+                    DispatchQueue.main.async {
+                        self.updateQuantityTextField.isHidden = true
+                    }
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+            alerrt.addAction(okAction)
+            alerrt.addAction(cancelAction)
+            self.present(alerrt, animated: true)
         }
         if updateQuantityTextField.text != "" {
             productQuantityLabel.text = "\(updateQuantityTextField.text ?? "") in Stock"
         }
-        
     }
     @IBAction func didSelectCloseAddVariantView(_ sender: Any) {
         addSizeTextField.text = ""
@@ -103,6 +166,10 @@ class ProductDetailsViewController: UIViewController {
         addPriceTextField.text = ""
         addQuantityTextField.text = ""
         addVariantView.isHidden = true
+    }
+    
+    @IBAction func didSelectSaveAllUpdates(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
@@ -168,16 +235,17 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
         switch collectionView {
         case sizeCollectionView:
             if selectedSizeIndex == indexPath.row {
-                // Deselect if already selected
                 selectedSizeIndex = nil
             } else {
                 selectedSizeIndex = indexPath.row
             }
+//            variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
+            variantIndex = indexPath.row
+            setupVariantDetails(ProductIndex: index, variantIndex: (indexPath.row + 1))
             sizeCollectionView.reloadData()
             
         case colorCollectionView:
             if selectedColorIndex == indexPath.row {
-                // Deselect if already selected
                 selectedColorIndex = nil
             } else {
                 selectedColorIndex = indexPath.row
@@ -185,7 +253,6 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             colorCollectionView.reloadData()
             
         default:
-//            print("\(indexPath.item), \(indexPath.section), bbbb")
             break
         }
     }
@@ -200,5 +267,5 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             cell.layer.cornerRadius = 10.0
         }
     }
+    
 }
-
