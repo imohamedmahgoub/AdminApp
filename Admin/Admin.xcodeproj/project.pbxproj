@@ -49,6 +49,10 @@
 		05B783862C90203C00CED1F9 /* PriceRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B783852C90203C00CED1F9 /* PriceRulesViewController.swift */; };
 		05B783882C90207500CED1F9 /* PriceRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B783872C90207500CED1F9 /* PriceRulesViewModel.swift */; };
 		05B7838A2C9023BC00CED1F9 /* PriceRulesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B783892C9023BC00CED1F9 /* PriceRulesTableViewCell.swift */; };
+		05BC5D262C91F700009BEA0C /* DiscountCodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D252C91F700009BEA0C /* DiscountCodesViewController.swift */; };
+		05BC5D282C91F714009BEA0C /* DiscountCodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D272C91F714009BEA0C /* DiscountCodesTableViewCell.swift */; };
+		05BC5D2A2C91F728009BEA0C /* DiscountCodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D292C91F728009BEA0C /* DiscountCodesViewModel.swift */; };
+		05BC5D2C2C91F944009BEA0C /* DiscountCodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D2B2C91F944009BEA0C /* DiscountCodesResponse.swift */; };
 		05F1A13F2C8CA1A300CFA51F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 05F1A13E2C8CA1A300CFA51F /* RxCocoa */; };
 		05F1A1412C8CA1A300CFA51F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 05F1A1402C8CA1A300CFA51F /* RxSwift */; };
 /* End PBXBuildFile section */
@@ -95,6 +99,10 @@
 		05B783852C90203C00CED1F9 /* PriceRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRulesViewController.swift; sourceTree = "<group>"; };
 		05B783872C90207500CED1F9 /* PriceRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRulesViewModel.swift; sourceTree = "<group>"; };
 		05B783892C9023BC00CED1F9 /* PriceRulesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRulesTableViewCell.swift; sourceTree = "<group>"; };
+		05BC5D252C91F700009BEA0C /* DiscountCodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCodesViewController.swift; sourceTree = "<group>"; };
+		05BC5D272C91F714009BEA0C /* DiscountCodesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCodesTableViewCell.swift; sourceTree = "<group>"; };
+		05BC5D292C91F728009BEA0C /* DiscountCodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCodesViewModel.swift; sourceTree = "<group>"; };
+		05BC5D2B2C91F944009BEA0C /* DiscountCodesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCodesResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +225,7 @@
 				05B7837D2C8F981A00CED1F9 /* LocationLevelResponse.swift */,
 				0532CDDA2C88A148002660F8 /* BrandsResponse.swift */,
 				05B783802C901BB400CED1F9 /* PriceRulesResponse.swift */,
+				05BC5D2B2C91F944009BEA0C /* DiscountCodesResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -328,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				05747E032C8753DA000D1DA6 /* TabBarModules */,
+				05BC5D222C91F6C9009BEA0C /* DiscountCodesModule */,
 				05747E042C8753F6000D1DA6 /* AllProductsModule */,
 				050F02282C89D51D00FC7030 /* ProductDetailsModule */,
 				05556A472C87AE9500055718 /* AddProductModule */,
@@ -433,6 +443,32 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		05BC5D222C91F6C9009BEA0C /* DiscountCodesModule */ = {
+			isa = PBXGroup;
+			children = (
+				05BC5D242C91F6E3009BEA0C /* ViewModel */,
+				05BC5D232C91F6DA009BEA0C /* View */,
+			);
+			path = DiscountCodesModule;
+			sourceTree = "<group>";
+		};
+		05BC5D232C91F6DA009BEA0C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				05BC5D252C91F700009BEA0C /* DiscountCodesViewController.swift */,
+				05BC5D272C91F714009BEA0C /* DiscountCodesTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		05BC5D242C91F6E3009BEA0C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				05BC5D292C91F728009BEA0C /* DiscountCodesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		05F1A13D2C8CA1A300CFA51F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +569,7 @@
 				058412A52C851BB000347BFC /* BrandsViewModel.swift in Sources */,
 				056B56942C860E18006D4348 /* Network Manager.swift in Sources */,
 				050F022C2C89D56300FC7030 /* ProductDetailsViewController.swift in Sources */,
+				05BC5D282C91F714009BEA0C /* DiscountCodesTableViewCell.swift in Sources */,
 				056B569E2C865FD1006D4348 /* ProductsViewModel.swift in Sources */,
 				056B56862C85D782006D4348 /* ProductsViewController.swift in Sources */,
 				053598A92C8B6B04007FA23E /* ColorCollectionViewCell.swift in Sources */,
@@ -545,6 +582,7 @@
 				05747E082C875458000D1DA6 /* AllProductsViewController.swift in Sources */,
 				0598E62C2C8DE45800BE62F0 /* InventoyViewController.swift in Sources */,
 				053598A72C8B3811007FA23E /* SizeCollectionViewCell.swift in Sources */,
+				05BC5D2C2C91F944009BEA0C /* DiscountCodesResponse.swift in Sources */,
 				058412A72C851F2200347BFC /* TabBarController.swift in Sources */,
 				056B56902C85FEF2006D4348 /* ProductResponse.swift in Sources */,
 				0598E6282C8DE0FD00BE62F0 /* LocationResponse.swift in Sources */,
@@ -552,9 +590,11 @@
 				058412A22C851A5000347BFC /* BrandsViewController.swift in Sources */,
 				0598E62A2C8DE1CF00BE62F0 /* InventoryViewModel.swift in Sources */,
 				0598E62F2C8DE93900BE62F0 /* InventoyTableViewCell.swift in Sources */,
+				05BC5D2A2C91F728009BEA0C /* DiscountCodesViewModel.swift in Sources */,
 				050F022E2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift in Sources */,
 				050F02302C89D59A00FC7030 /* ProductDetailsViewModel.swift in Sources */,
 				05747E0A2C875538000D1DA6 /* AllProductsViewModel.swift in Sources */,
+				05BC5D262C91F700009BEA0C /* DiscountCodesViewController.swift in Sources */,
 				0584129B2C85163900347BFC /* SigninViewController.swift in Sources */,
 				05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */,
 				05B783812C901BB400CED1F9 /* PriceRulesResponse.swift in Sources */,

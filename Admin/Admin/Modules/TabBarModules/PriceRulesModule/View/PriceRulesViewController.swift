@@ -9,6 +9,7 @@ import UIKit
 
 class PriceRulesViewController: UIViewController {
     var viewModel = PriceRulesViewModel()
+    let indicator = UIActivityIndicatorView(style: .medium)
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addDiscountView: UIView!
     @IBOutlet weak var discountTitleTextField: UITextField!
@@ -23,6 +24,9 @@ class PriceRulesViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        indicator.center = view.center
+        indicator.startAnimating()
+        view.addSubview(indicator)
         setupAddDiscountView()
         
     }
@@ -32,6 +36,7 @@ class PriceRulesViewController: UIViewController {
         viewModel.getDiscout(completion: {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.indicator.stopAnimating()
             }
         })
     }
@@ -63,35 +68,34 @@ class PriceRulesViewController: UIViewController {
         
         let title = discountTitleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let value = discountAmountTextFiled.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "0"
-        let prerequisiteQuantity = Int(miniSubtotalTextField.text ?? "0") ?? 0
+        let prerequisiteQuantity = miniSubtotalTextField.text ?? "0"
         let allocationLimit = Int(usageLimitsTextField.text ?? "0") ?? 0
         
         viewModel.parameters = [
-            "title": title,
-            "value_type": typeSegmentedControl.selectedSegmentIndex == 0 ? "percentage" : "fixed_amount",
-            "value": value,
-            "customer_selection": "all",
-            "target_type": "line_item",
-            "target_selection": "entitled",
-            "allocation_method": "each",
-            "starts_at": startsAt,
-            "ends_at": endsAt,
-            "prerequisite_collection_ids": [841564295],
-            "entitled_product_ids": [921728736],
-            "prerequisite_to_entitlement_quantity_ratio": [
-                "prerequisite_quantity": prerequisiteQuantity,
-                "entitled_quantity": 1
-            ],
-            "allocation_limit": allocationLimit
+            "price_rule": [
+                "title": title,
+                "target_type": "line_item",
+                "target_selection": "all",
+                "allocation_method": "each",
+                "value_type": typeSegmentedControl.selectedSegmentIndex == 0 ? "percentage":"fixed_amount",
+                "value": value,
+                "customer_selection": "all",
+                "starts_at": startsAt,
+                "ends_at" : endsAt,
+                "usage_limit" : allocationLimit,
+//                "prerequisite_to_entitlement_purchase" : [
+//                    "prerequisite_amount" : prerequisiteQuantity
+//                ]
+            ]
         ]
         
         viewModel.addDiscout {
             DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+                self.addDiscountView.isHidden = true
+                self.tableView.reloadData()
             }
         }
     }
-    
 }
 extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,10 +107,13 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
         let priceRule = viewModel.priceRulesArray[indexPath.row]
         cell.pricePertentage.text = priceRule.title
         cell.startDate.text = transformDateWithAddedHours(priceRule.startsAt ?? "", hoursToAdd: 0)
-        cell.endDate.text = transformDateWithAddedHours(priceRule.startsAt ?? "", hoursToAdd: 24)
-        /*transformDateWithAddedHours((priceRule.endsAt ?? transformDateWithAddedHours(priceRule.startsAt ?? "" , hoursToAdd: 24)) ?? "", hoursToAdd: 0)*/
-        cell.MoneyRequired.text = "\(priceRule.value ?? "200")$ After \(priceRule.prerequisiteToEntitlementQuantityRatio?.prerequisiteQuantity ?? "800")"
-        cell.maxUsers.text = priceRule.usageLimit ?? "10" + " Max usages"
+        if priceRule.endsAt == nil {
+            cell.endDate.text = transformDateWithAddedHours(priceRule.startsAt ?? "", hoursToAdd: 24)
+        }else{
+            cell.endDate.text = transformDateWithAddedHours(priceRule.endsAt ?? "", hoursToAdd: 0)
+        }
+        cell.MoneyRequired.text = "\(priceRule.value ?? "200")$ After \(priceRule.prerequisiteToEntitlementQuantityRatio?.prerequisiteQuantity ?? "\(priceRule.prerequisiteQuantityRange ?? "700")")"
+        cell.maxUsers.text = "\(priceRule.usageLimit ?? 10)" + " Max Usage"
         updateCellAppearance(cell: cell)
         return cell
     }
@@ -128,6 +135,12 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
         cell.layer.borderWidth = 2.0
         cell.layer.borderColor = UIColor.systemBlue.cgColor
         cell.layer.cornerRadius = 10.0
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DiscountCodesViewController") as? DiscountCodesViewController
+        guard let vc else {return}
+        vc.viewModel.id = viewModel.priceRulesArray[indexPath.row].id ?? 0
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension PriceRulesViewController {

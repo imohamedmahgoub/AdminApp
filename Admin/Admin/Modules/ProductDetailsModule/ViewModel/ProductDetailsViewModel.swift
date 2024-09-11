@@ -18,9 +18,11 @@ class ProductDetailsViewModel {
     var variantId = 0
     var parameters: [String: Any] = [:]
     var quantityParameters: [String: Any] = [:]
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
+         self.networkService = networkService
+     }
     
     func updateProduct(completion: @escaping () -> Void) {
-        networkService = NetworkService()
         print(variantId)
         networkService?.postData(path:"variants/\(variantId)", parameters: parameters, postFlag: false, handler: { (response, error) in
             if let error = error {
@@ -33,8 +35,6 @@ class ProductDetailsViewModel {
         })
     }
     func updateProductQuantity(completion: @escaping () -> Void) {
-        networkService = NetworkService()
-        print(variantId)
         networkService?.postData(path:"inventory_levels/set", parameters: quantityParameters, postFlag: true, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")

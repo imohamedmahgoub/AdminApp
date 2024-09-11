@@ -12,20 +12,23 @@ class PriceRulesViewModel {
     var priceRulesArray : [PriceRule] = []
     var parameters : [String:Any] = [:]
     
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
+         self.networkService = networkService
+     }
+    
     func addDiscout(completion: @escaping () -> Void) {
         networkService?.postData(path: "price_rules", parameters: parameters, postFlag: true, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()
-            } else if let response = response {
-               print("Data Uploaded : \(response)")
+            } else if response != nil {
+               print("Success")
                 completion()
             }
         })
         
     }
     func getDiscout(completion: @escaping () -> Void) {
-        networkService = NetworkService()
         networkService?.getData(path: "price_rules", parameters: [:], model: PriceRulesResponse.self, handler: { (response: PriceRulesResponse?, error: Error?) in
             if let error = error {
                 print("Error fetching data: \(error.localizedDescription)")
@@ -38,7 +41,6 @@ class PriceRulesViewModel {
         })
     }
     func deleteDiscount(discountId : Int) {
-        networkService = NetworkService()
         networkService?.deleteData(path: "price_rules/\(discountId)")
     }
 }

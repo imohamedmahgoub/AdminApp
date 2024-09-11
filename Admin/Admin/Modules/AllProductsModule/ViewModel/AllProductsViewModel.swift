@@ -10,8 +10,10 @@ class AllProductsViewModel {
     var productArray : [Product] = []
     var locationsLevelArray : [InventoryLevel] = []
     var networkService : NetworkServiceProtocol?
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
+         self.networkService = networkService
+     }
     func getData(completion: @escaping () -> Void){
-        networkService = NetworkService()
         networkService?.getData(path:"products", parameters: [:], model: ProductResponse.self) { (response: ProductResponse?, error: Error?) in
             if let error = error {
                 print("Error fetching data: \(error.localizedDescription)")

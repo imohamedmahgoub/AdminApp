@@ -24,7 +24,7 @@ struct PriceRule: Codable {
     let targetSelection, allocationMethod: String?
     let allocationLimit: String?
     let oncePerCustomer: Bool?
-    let usageLimit: String?
+    let usageLimit: Int?
     let startsAt: String?
     let endsAt: String?
     let createdAt, updatedAt: String?
