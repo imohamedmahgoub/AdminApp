@@ -39,8 +39,15 @@ class DiscountCodesViewController: UIViewController{
         saveOutlet.layer.borderColor = UIColor.red.cgColor
         saveOutlet.layer.borderWidth = 2.0
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = "Discount Codes"
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addDiscount))
+        self.navigationItem.rightBarButtonItem = addButton
+    }
     
-    @IBAction func didSelectAddDiscount(_ sender: Any) {
+    @objc
+    func addDiscount() {
         addDiscountView.isHidden = false
     }
     

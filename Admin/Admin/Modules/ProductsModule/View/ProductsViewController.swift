@@ -26,6 +26,9 @@ class ProductsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = "Available Products"
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addProduct))
+        self.navigationItem.rightBarButtonItem = addButton
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -33,8 +36,8 @@ class ProductsViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction func didSelectAdd(_ sender: Any) {
+    @objc
+    func addProduct() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "AddProductViewController") as? AddProductViewController
         guard let vc = vc else { return }
         vc.viewModel.vendor = viewModel.vendor

@@ -32,7 +32,9 @@ class PriceRulesViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tabBarController?.title = "Price Rules"
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addDiscount))
+        self.tabBarController?.navigationItem.rightBarButtonItem = addButton
         viewModel.getDiscout(completion: {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -50,6 +52,10 @@ class PriceRulesViewController: UIViewController {
     }
     
     @IBAction func didSelectAddDiscount(_ sender: Any) {
+        addDiscountView.isHidden = false
+    }
+    @objc
+    func addDiscount() {
         addDiscountView.isHidden = false
     }
     

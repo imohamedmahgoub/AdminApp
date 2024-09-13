@@ -18,6 +18,7 @@ class ProductDetailsViewModel {
     var variantId = 0
     var parameters: [String: Any] = [:]
     var quantityParameters: [String: Any] = [:]
+    var variantParameters: [String:Any] = [:]
     init(networkService: NetworkServiceProtocol = NetworkService()) {
          self.networkService = networkService
      }
@@ -29,7 +30,7 @@ class ProductDetailsViewModel {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()
             } else if response != nil {
-               //print("Data Uploaded : \(response)")
+               print("Success")
                 completion()
             }
         })
@@ -40,7 +41,19 @@ class ProductDetailsViewModel {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()
             } else if response != nil {
-               //print("Data Uploaded : \(response)")
+               print("Success")
+                completion()
+            }
+        })
+    }
+    
+    func addProductVariant(completion: @escaping () -> Void) {
+        networkService?.postData(path: "products/632910392/variants", parameters: variantParameters, postFlag: true, handler: { (response, error) in
+            if let error = error {
+                print("Error Upload data: \(error.localizedDescription)")
+                completion()
+            } else if response != nil {
+               print("Success")
                 completion()
             }
         })

@@ -32,6 +32,7 @@ class AllProductsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = "All Products"
         viewModel.getData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()

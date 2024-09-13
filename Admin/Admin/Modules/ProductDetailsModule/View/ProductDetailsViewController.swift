@@ -38,7 +38,7 @@ class ProductDetailsViewController: UIViewController {
     var disposeBag = DisposeBag()
     var index = 0
     var variantIndex = 0
-    var variantItemId = 0
+    var variantItemId : Int = 0
     var selectedSizeIndex : Int? = nil
     var selectedColorIndex: Int? = nil
     override func viewDidLoad() {
@@ -86,7 +86,27 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func didSelectSave(_ sender: Any) {
-        addVariantView.isHidden = true
+        let size = addSizeTextField.text ?? "5"
+        let color = addColorTextfield.text ?? "Blue"
+        let price = addPriceTextField.text ?? "100.00"
+        let quantity = Int(addQuantityTextField.text ?? "" ) ?? 10
+        
+        print(viewModel.id)
+        viewModel.variantParameters = ["variant" : [
+            "product_id" : viewModel.id,
+            "option1" : color,
+            "option2" : size,
+            "price" : price,
+            "inventory_quantity" : quantity
+        ]
+                                       ]
+        viewModel.addProductVariant {
+            DispatchQueue.main.async {
+                self.colorCollectionView.reloadData()
+                self.sizeCollectionView.reloadData()
+                self.addVariantView.isHidden = true
+            }
+        }
     }
     
     @IBAction func didSelectEditPrice(_ sender: Any) {
@@ -94,7 +114,6 @@ class ProductDetailsViewController: UIViewController {
             updatePriceTextField.isHidden = false
         }else{
             guard let price = updatePriceTextField.text , !price.isEmpty
-                    // let quantity = Int(updateQuantityTextField.text ?? "")
             else { return  }
             let alerrt = UIAlertController(title: "Updating Product's price", message: "Are you sure to save", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
@@ -137,14 +156,14 @@ class ProductDetailsViewController: UIViewController {
             print(variantItemId)
             let alerrt = UIAlertController(title: "Updating Product's quantity", message: "Are you sure to save", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                
+                print("zyad")
+                print(self.variantItemId)
                 self.viewModel.quantityParameters = [
-                    "inventory_level" : [
-                        "set" :  [ [], // Params
-                                   ["location_id" : 72712781961, "inventory_item_id" : self.variantItemId, "available" : quantity] ]// Body
-                    ]
+                    "location_id": 72712781961,
+                    "inventory_item_id": self.variantItemId,
+                    "available": quantity
                 ]
-                self.viewModel.updateProduct {
+                self.viewModel.updateProductQuantity() {
                     DispatchQueue.main.async {
                         self.updateQuantityTextField.isHidden = true
                     }
@@ -239,7 +258,7 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             } else {
                 selectedSizeIndex = indexPath.row
             }
-//            variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
+                        variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
             variantIndex = indexPath.row
             setupVariantDetails(ProductIndex: index, variantIndex: (indexPath.row + 1))
             sizeCollectionView.reloadData()
@@ -250,6 +269,7 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             } else {
                 selectedColorIndex = indexPath.row
             }
+            variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
             colorCollectionView.reloadData()
             
         default:
