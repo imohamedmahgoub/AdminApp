@@ -37,6 +37,9 @@ class AllProductsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
+                if self.viewModel.productArray.count == 0 {
+                    self.tableView.isHidden = true
+                }
             }
         }
     }
@@ -67,12 +70,9 @@ extension AllProductsViewController : UITableViewDelegate , UITableViewDataSourc
         vc.viewModel.productArray = self.viewModel.productArray
         vc.viewModel.imagesArray = self.viewModel.productArray[indexPath.row].images ?? []
         vc.index = indexPath.row
-        if let size = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .size }) {
-            vc.viewModel.sizeArray = size.values ?? ["NO"]
-        }
-        if let color = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .color }) {
-            vc.viewModel.colorArray = color.values ?? ["NO"]
-        }
+        
+        vc.viewModel.sizeArray = self.viewModel.productArray[indexPath.row].options?.filter({ $0.name == .size }) ?? []
+        vc.viewModel.colorArray = self.viewModel.productArray[indexPath.row].options?.filter({ $0.name == .color }) ?? []
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -10,6 +10,7 @@ import UIKit
 class ProductsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyImage: UIImageView!
     let viewModel = ProductsViewModel()
     let indicator = UIActivityIndicatorView(style: .medium)
     override func viewDidLoad() {
@@ -33,6 +34,9 @@ class ProductsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
+                if self.viewModel.productArray.count == 0 {
+                    self.tableView.isHidden = true
+                }
             }
         }
     }
@@ -71,13 +75,9 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
         vc.viewModel.productArray = self.viewModel.productArray
         vc.viewModel.imagesArray = self.viewModel.productArray[indexPath.row].images ?? []
         vc.index = indexPath.row
-        if let size = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .size }) {
-            vc.viewModel.sizeArray = size.values ?? ["NO"]
-        }
-        if let color = self.viewModel.productArray[indexPath.row].options?.first(where: { $0.name == .color }) {
-            vc.viewModel.colorArray = color.values ?? ["NO"]
-            
-        }
+        
+        vc.viewModel.sizeArray = self.viewModel.productArray[indexPath.row].options?.filter({ $0.name == .size }) ?? []
+        vc.viewModel.colorArray = self.viewModel.productArray[indexPath.row].options?.filter({ $0.name == .color }) ?? []
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -92,5 +92,4 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
 }

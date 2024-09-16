@@ -31,7 +31,8 @@ struct PriceRule: Codable {
     let entitledProductIDS, entitledVariantIDS, entitledCollectionIDS, entitledCountryIDS: [String]?
     let prerequisiteProductIDS, prerequisiteVariantIDS, prerequisiteCollectionIDS, customerSegmentPrerequisiteIDS: [String]?
     let prerequisiteCustomerIDS: [String]?
-    let prerequisiteSubtotalRange, prerequisiteQuantityRange, prerequisiteShippingPriceRange: String?
+    let prerequisiteQuantityRange, prerequisiteShippingPriceRange: String?
+    let prerequisiteSubtotalRange: PrerequisiteSubtotalRange?
     let prerequisiteToEntitlementQuantityRatio: PrerequisiteToEntitlementQuantityRatio?
     let prerequisiteToEntitlementPurchase: PrerequisiteToEntitlementPurchase?
     let title, adminGraphqlAPIID: String?
@@ -86,6 +87,14 @@ struct PrerequisiteToEntitlementQuantityRatio: Codable {
     enum CodingKeys: String, CodingKey {
         case prerequisiteQuantity = "prerequisite_quantity"
         case entitledQuantity = "entitled_quantity"
+    }
+}
+
+struct PrerequisiteSubtotalRange: Codable {
+    let greaterThanOrEqualTo: String?
+
+    enum CodingKeys: String, CodingKey {
+        case greaterThanOrEqualTo = "greater_than_or_equal_to"
     }
 }
 

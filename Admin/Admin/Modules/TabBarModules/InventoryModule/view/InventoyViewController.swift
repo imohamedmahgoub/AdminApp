@@ -23,17 +23,23 @@ class InventoyViewController: UIViewController {
         
         let nib = UINib(nibName: "InventoyTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "cell")
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.title = "Branshes"
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
         
         viewModel.getLocationData {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
+                if self.viewModel.locationsArray.count == 0 {
+                    self.tableView.isHidden = true
+                }
             }
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.title = "Branshes"
+        
     }
     
 }
@@ -48,6 +54,7 @@ extension InventoyViewController : UITableViewDelegate ,UITableViewDataSource {
         cell.shopName.text = location.name
         cell.shopCountry.text = location.countryName
         cell.shopImage.image = UIImage(named: "1")
+        setupCell(cell: cell)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -59,5 +66,11 @@ extension InventoyViewController : UITableViewDelegate ,UITableViewDataSource {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func setupCell (cell : UITableViewCell) {
+        cell.layer.cornerRadius = 20.0
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.black.cgColor
+    }
+     
     
 }

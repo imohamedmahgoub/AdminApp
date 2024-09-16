@@ -34,9 +34,11 @@ class BrandsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.title = "Brands"
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
     
 }
+
 extension BrandsViewController : UICollectionViewDelegate,UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.brandsArray.count
@@ -47,7 +49,7 @@ extension BrandsViewController : UICollectionViewDelegate,UICollectionViewDataSo
         let url = URL(string: "\(viewModel.brandsArray[indexPath.row].image?.src ?? "")")
         cell.brandImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
         cell.brandName.text = viewModel.brandsArray[indexPath.row].title
-        cell.layer.cornerRadius = 20
+        setupCell(cell: cell)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -65,5 +67,10 @@ extension BrandsViewController : UICollectionViewDelegate,UICollectionViewDataSo
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         
         collectionView.collectionViewLayout = flowLayout
+    }
+    func setupCell (cell : UICollectionViewCell) {
+        cell.layer.cornerRadius = 20.0
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.black.cgColor
     }
 }

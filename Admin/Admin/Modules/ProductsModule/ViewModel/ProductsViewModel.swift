@@ -26,7 +26,6 @@ class ProductsViewModel {
             }
         }
     }
-    
     func deleteProduct(productId : Int){
         networkService?.deleteData(path: "products/\(productId)")
     }

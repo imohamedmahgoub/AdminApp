@@ -11,7 +11,6 @@
 		050F022E2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050F022D2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift */; };
 		050F02302C89D59A00FC7030 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050F022F2C89D59A00FC7030 /* ProductDetailsViewModel.swift */; };
 		0532CDDB2C88A148002660F8 /* BrandsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0532CDDA2C88A148002660F8 /* BrandsResponse.swift */; };
-		053598A52C8B2A73007FA23E /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 053598A42C8B2A73007FA23E /* Cosmos */; };
 		053598A72C8B3811007FA23E /* SizeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053598A62C8B3811007FA23E /* SizeCollectionViewCell.swift */; };
 		053598A92C8B6B04007FA23E /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053598A82C8B6B04007FA23E /* ColorCollectionViewCell.swift */; };
 		05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A452C87734A00055718 /* Internet Connectivity.swift */; };
@@ -53,8 +52,6 @@
 		05BC5D282C91F714009BEA0C /* DiscountCodesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D272C91F714009BEA0C /* DiscountCodesTableViewCell.swift */; };
 		05BC5D2A2C91F728009BEA0C /* DiscountCodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D292C91F728009BEA0C /* DiscountCodesViewModel.swift */; };
 		05BC5D2C2C91F944009BEA0C /* DiscountCodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D2B2C91F944009BEA0C /* DiscountCodesResponse.swift */; };
-		05F1A13F2C8CA1A300CFA51F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 05F1A13E2C8CA1A300CFA51F /* RxCocoa */; };
-		05F1A1412C8CA1A300CFA51F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 05F1A1402C8CA1A300CFA51F /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,10 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				053598A52C8B2A73007FA23E /* Cosmos in Frameworks */,
 				056B569C2C8618D6006D4348 /* Kingfisher in Frameworks */,
-				05F1A1412C8CA1A300CFA51F /* RxSwift in Frameworks */,
-				05F1A13F2C8CA1A300CFA51F /* RxCocoa in Frameworks */,
 				056B56972C860E53006D4348 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,9 +489,6 @@
 			packageProductDependencies = (
 				056B56962C860E53006D4348 /* Alamofire */,
 				056B569B2C8618D6006D4348 /* Kingfisher */,
-				053598A42C8B2A73007FA23E /* Cosmos */,
-				05F1A13E2C8CA1A300CFA51F /* RxCocoa */,
-				05F1A1402C8CA1A300CFA51F /* RxSwift */,
 			);
 			productName = Admin;
 			productReference = 0584127D2C85113300347BFC /* Admin.app */;
@@ -865,11 +856,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		053598A42C8B2A73007FA23E /* Cosmos */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 053598A32C8B2A73007FA23E /* XCRemoteSwiftPackageReference "Cosmos" */;
-			productName = Cosmos;
-		};
 		056B56962C860E53006D4348 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 056B56952C860E53006D4348 /* XCRemoteSwiftPackageReference "Alamofire" */;
@@ -879,16 +865,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 056B569A2C8618D6006D4348 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		05F1A13E2C8CA1A300CFA51F /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 05F1A13C2C8CA18500CFA51F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		05F1A1402C8CA1A300CFA51F /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 05F1A13C2C8CA18500CFA51F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

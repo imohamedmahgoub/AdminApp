@@ -19,7 +19,8 @@ class PriceRulesViewController: UIViewController {
     @IBOutlet weak var discountAmountTextFiled: UITextField!
     @IBOutlet weak var miniSubtotalTextField: UITextField!
     @IBOutlet weak var usageLimitsTextField: UITextField!
-    
+    @IBOutlet weak var cancelOutlet: UIButton!
+    @IBOutlet weak var saveOutlet: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -35,18 +36,29 @@ class PriceRulesViewController: UIViewController {
         self.tabBarController?.title = "Price Rules"
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addDiscount))
         self.tabBarController?.navigationItem.rightBarButtonItem = addButton
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = false
+
         viewModel.getDiscout(completion: {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.indicator.stopAnimating()
+                if self.viewModel.priceRulesArray.count == 0 {
+                    self.tableView.isHidden = true
+                }
             }
         })
     }
     func setupAddDiscountView() {
         addDiscountView.isHidden = true
         addDiscountView.layer.cornerRadius = 10.0
-        addDiscountView.layer.borderWidth = 3.0
+        addDiscountView.layer.borderWidth = 1.0
         addDiscountView.layer.borderColor = UIColor.red.cgColor
+        cancelOutlet.layer.cornerRadius = 10.0
+        cancelOutlet.layer.borderWidth = 0.5
+        cancelOutlet.layer.borderColor = UIColor.red.cgColor
+        saveOutlet.layer.cornerRadius = 10.0
+        saveOutlet.layer.borderWidth = 0.5
+        saveOutlet.layer.borderColor = UIColor.red.cgColor
         fromDatePicker.minimumDate = Date()
         toDatePicker.minimumDate = Date()
     }
@@ -82,16 +94,16 @@ class PriceRulesViewController: UIViewController {
                 "title": title,
                 "target_type": "line_item",
                 "target_selection": "all",
-                "allocation_method": "each",
+                "allocation_method": "across",
                 "value_type": typeSegmentedControl.selectedSegmentIndex == 0 ? "percentage":"fixed_amount",
                 "value": value,
                 "customer_selection": "all",
                 "starts_at": startsAt,
                 "ends_at" : endsAt,
                 "usage_limit" : allocationLimit,
-//                "prerequisite_to_entitlement_purchase" : [
-//                    "prerequisite_amount" : prerequisiteQuantity
-//                ]
+                "prerequisite_subtotal_range" : [
+                    "greater_than_or_equal_to" : prerequisiteQuantity
+                ]
             ]
         ]
         
@@ -118,7 +130,7 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
         }else{
             cell.endDate.text = transformDateWithAddedHours(priceRule.endsAt ?? "", hoursToAdd: 0)
         }
-        cell.MoneyRequired.text = "\(priceRule.value ?? "200")$ After \(priceRule.prerequisiteToEntitlementQuantityRatio?.prerequisiteQuantity ?? "\(priceRule.prerequisiteQuantityRange ?? "700")")"
+        cell.MoneyRequired.text = "\(priceRule.value ?? "200")$ After \(priceRule.prerequisiteToEntitlementQuantityRatio?.prerequisiteQuantity ?? "\(priceRule.prerequisiteSubtotalRange?.greaterThanOrEqualTo ?? "700")")"
         cell.maxUsers.text = "\(priceRule.usageLimit ?? 10)" + " Max Usage"
         updateCellAppearance(cell: cell)
         return cell
@@ -138,9 +150,9 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     func updateCellAppearance(cell: UITableViewCell) {
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.systemBlue.cgColor
-        cell.layer.cornerRadius = 10.0
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.cyan.cgColor
+        cell.layer.cornerRadius = 40.0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "DiscountCodesViewController") as? DiscountCodesViewController

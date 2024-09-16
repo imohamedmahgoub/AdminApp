@@ -22,7 +22,7 @@ class DiscountCodesViewModel {
                 print("Error fetching data: \(error.localizedDescription)")
                 completion()
             } else if let response = response {
-                print("Data received: \(response)")
+                //print("Data received: \(response)")
                 self.discountCodesArray = response.discountCodes ?? []
                 completion()
             }
@@ -39,5 +39,10 @@ class DiscountCodesViewModel {
                 completion()
             }
         })
+    }
+    
+    func deleteDiscountCode(){
+        print(id)
+        networkService?.deleteData(path: "price_rules/\(id)/discount_codes/\(id)")
     }
 }

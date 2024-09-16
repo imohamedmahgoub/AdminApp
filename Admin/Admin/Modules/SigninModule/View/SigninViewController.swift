@@ -11,10 +11,14 @@ class SigninViewController: UIViewController {
     @IBOutlet weak var showPasswordButtonOutlet: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var signInOutlet: UIButton!
     let username = "Admin"
     let password = "admin"
     override func viewDidLoad() {
         super.viewDidLoad()
+        signInOutlet.layer.cornerRadius = 10.0
+        signInOutlet.layer.borderWidth = 0.5
+        signInOutlet.layer.borderColor = UIColor.red.cgColor
     }
     
     @IBAction func didSelectSignin(_ sender: Any) {
@@ -24,8 +28,8 @@ class SigninViewController: UIViewController {
                 guard let vc = vc else { return }
                 
                 vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
-                // self.navigationController?.pushViewController(vc, animated: true)
+                 self.present(vc, animated: true)
+//                 self.navigationController?.pushViewController(vc, animated: true)
                 usernameTextField.text = ""
                 passwordTextField.text = ""
             }else{

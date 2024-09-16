@@ -7,8 +7,6 @@
 
 import UIKit
 import Kingfisher
-import RxSwift
-import RxCocoa
 
 class ProductDetailsViewController: UIViewController {
     
@@ -33,23 +31,36 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var updateQuantityTextField: UITextField!
     @IBOutlet weak var editQuantityButtonOutlet: UIButton!
     @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var saveAllUpdatesOutlet: UIButton!
     var viewModel = ProductDetailsViewModel()
-    var disposeBag = DisposeBag()
     var index = 0
     var variantIndex = 0
     var variantItemId : Int = 0
     var selectedSizeIndex : Int? = nil
     var selectedColorIndex: Int? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionViews()
         setupProductDetails(index: index)
+        guard let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+                layout.itemSize = UICollectionViewFlowLayout.automaticSize
+                layout.estimatedItemSize = CGSize(width: 20, height: 40)  
+        guard let layout = colorCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+                layout.itemSize = UICollectionViewFlowLayout.automaticSize
+                layout.estimatedItemSize = CGSize(width: 20, height: 40)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let addButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveUpdates))
+        self.navigationItem.rightBarButtonItem = addButton
+    }
+    @objc func saveUpdates() {
+        self.navigationController?.popViewController(animated: true)
     }
     func setupProductDetails(index : Int) {
         productTitle.text = viewModel.productArray[index].title
         productBrand.text = "\(viewModel.productArray[index].vendor ?? ""), \(viewModel.productArray[index].productType ?? "")"
-        productPriceLabel.text = "\(viewModel.productArray[index].variants?.first?.price ?? "")$"
+        productPriceLabel.text = "\(viewModel.productArray[index].variants?[variantItemId].price ?? "")$"
         productQuantityLabel.text = "\(viewModel.productArray[index].variants?.first?.inventoryQuantity ?? 0) in Stock"
         descriptionTextView.text = viewModel.productArray[index].bodyHTML
         viewModel.id = viewModel.productArray[index].id ?? 0
@@ -68,13 +79,24 @@ class ProductDetailsViewController: UIViewController {
         colorCollectionView.dataSource = self
         colorCollectionView.delegate = self
         
-        startAutoScroll()
+        //startAutoScroll()
         addVariantOutlet.layer.cornerRadius = 10.0
-        saveOutlet.layer.cornerRadius = 5.0
+        addVariantOutlet.layer.borderWidth = 0.5
+        addVariantOutlet.layer.borderColor = UIColor.cyan.cgColor
+        
+        saveOutlet.layer.cornerRadius = 10.0
+        saveOutlet.layer.borderWidth = 0.5
+        saveOutlet.layer.borderColor = UIColor.red.cgColor
+
         addVariantView.layer.cornerRadius = 10.0
+        addVariantView.layer.borderWidth = 1.0
+        addVariantView.layer.borderColor = UIColor.red.cgColor
+        
         closeAddVariantViewOutlet.layer.cornerRadius = 10.0
+        closeAddVariantViewOutlet.layer.borderWidth = 0.5
+        closeAddVariantViewOutlet.layer.borderColor = UIColor.red.cgColor
+        
         descriptionTextView.layer.cornerRadius = 10.0
-        saveAllUpdatesOutlet.layer.cornerRadius = 10.0
         
         addVariantView.isHidden = true
         updatePriceTextField.isHidden = true
@@ -91,21 +113,26 @@ class ProductDetailsViewController: UIViewController {
         let price = addPriceTextField.text ?? "100.00"
         let quantity = Int(addQuantityTextField.text ?? "" ) ?? 10
         
-        print(viewModel.id)
         viewModel.variantParameters = ["variant" : [
             "product_id" : viewModel.id,
-            "option1" : color,
-            "option2" : size,
-            "price" : price,
-            "inventory_quantity" : quantity
+            "option1" : size,
+            "option2" : color,
+            "price" : price
         ]
-                                       ]
+    ]
         viewModel.addProductVariant {
             DispatchQueue.main.async {
                 self.colorCollectionView.reloadData()
                 self.sizeCollectionView.reloadData()
                 self.addVariantView.isHidden = true
             }
+        }
+        viewModel.quantityParameters = [
+            "location_id": 72712781961,
+            "inventory_item_id": self.variantItemId,
+            "available": quantity
+        ]
+        viewModel.updateProductQuantity {
         }
     }
     
@@ -117,7 +144,6 @@ class ProductDetailsViewController: UIViewController {
             else { return  }
             let alerrt = UIAlertController(title: "Updating Product's price", message: "Are you sure to save", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                
                 self.viewModel.parameters = [
                     "variant" : [
                         "id": self.viewModel.variantId,
@@ -153,11 +179,8 @@ class ProductDetailsViewController: UIViewController {
         }else{
             guard let quantity = Int(updateQuantityTextField.text ?? "")
             else { return  }
-            print(variantItemId)
             let alerrt = UIAlertController(title: "Updating Product's quantity", message: "Are you sure to save", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                print("zyad")
-                print(self.variantItemId)
                 self.viewModel.quantityParameters = [
                     "location_id": 72712781961,
                     "inventory_item_id": self.variantItemId,
@@ -186,18 +209,15 @@ class ProductDetailsViewController: UIViewController {
         addQuantityTextField.text = ""
         addVariantView.isHidden = true
     }
-    
-    @IBAction func didSelectSaveAllUpdates(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
 }
 extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case sizeCollectionView :
-            return viewModel.sizeArray.count
+            return viewModel.sizeArray.first?.values?.count ?? 0
         case colorCollectionView:
-            return viewModel.colorArray.count
+
+            return viewModel.colorArray.first?.values?.count ?? 7
         default:
             pageControl.numberOfPages = viewModel.imagesArray.count
             return viewModel.imagesArray.count
@@ -209,13 +229,13 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
         switch collectionView {
         case sizeCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SizeCollectionViewCell
-            cell.productSize.text = viewModel.sizeArray[indexPath.row]
+            cell.productSize.text = viewModel.sizeArray.first?.values?[indexPath.row]
             updateCellAppearance(cell: cell, isSelected: indexPath.row == selectedSizeIndex)
             return cell
             
         case colorCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ColorCollectionViewCell
-            cell.productColor.text = viewModel.colorArray[indexPath.row]
+            cell.productColor.text = viewModel.colorArray.first?.values?[indexPath.row]
             updateCellAppearance(cell: cell, isSelected: indexPath.row == selectedColorIndex)
             return cell
         default:
@@ -227,28 +247,22 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             return cell
         }
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let scrollView = imagesCollectionView {
+            let width = imagesCollectionView.frame.size.width
+            let currentPage = Int(imagesCollectionView.contentOffset.x / width)
+            pageControl.currentPage = currentPage
+        }
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
-        case sizeCollectionView :
-            return CGSize(width: 30, height: 40)
-        case colorCollectionView :
+        case sizeCollectionView, colorCollectionView :
             return CGSize(width: 50, height: 40)
         default:
             return CGSize(width: imagesCollectionView.frame.width, height: imagesCollectionView.frame.height)
         }
-    }
-    
-    func startAutoScroll() {
-        viewModel.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(autoScrollCollectionView), userInfo: nil, repeats: true)
-    }
-    
-    @objc func autoScrollCollectionView() {
-        if viewModel.index >= viewModel.imagesArray.count{
-            viewModel.index = 0
-        }
-        imagesCollectionView.scrollToItem(at: IndexPath(item: viewModel.index, section: 0), at: .centeredHorizontally, animated: true)
-        pageControl.currentPage =  viewModel.index
-        viewModel.index += 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
@@ -258,8 +272,10 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             } else {
                 selectedSizeIndex = indexPath.row
             }
-                        variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
-            variantIndex = indexPath.row
+                        variantItemId = viewModel.productArray[index].variants?[indexPath.row].inventoryItemID ?? 0
+            productPriceLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].price ?? "")$"
+            productQuantityLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].inventoryQuantity ?? 0) in Stock"
+            
             setupVariantDetails(ProductIndex: index, variantIndex: (indexPath.row + 1))
             sizeCollectionView.reloadData()
             
@@ -269,7 +285,9 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             } else {
                 selectedColorIndex = indexPath.row
             }
-            variantItemId = viewModel.productArray[indexPath.row].variants?[indexPath.row].inventoryItemID ?? 0
+            variantItemId = viewModel.productArray[index].variants?[indexPath.row].inventoryItemID ?? 0
+            productPriceLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].price ?? "")$"
+            productQuantityLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].inventoryQuantity ?? 0) in Stock"
             colorCollectionView.reloadData()
             
         default:

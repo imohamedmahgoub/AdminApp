@@ -10,12 +10,13 @@ class ProductDetailsViewModel {
     var networkService : NetworkServiceProtocol?
     var productArray : [Product] = []
     var imagesArray : [Image] = []
-    var sizeArray : [String] = []
-    var colorArray : [String] = []
+    var sizeArray : [Option] = []
+    var colorArray : [Option] = []
     var timer: Timer?
     var index = 0
     var id = 0
     var variantId = 0
+    var ReloadCV : (()->Void) = {}
     var parameters: [String: Any] = [:]
     var quantityParameters: [String: Any] = [:]
     var variantParameters: [String:Any] = [:]
@@ -24,7 +25,6 @@ class ProductDetailsViewModel {
      }
     
     func updateProduct(completion: @escaping () -> Void) {
-        print(variantId)
         networkService?.postData(path:"variants/\(variantId)", parameters: parameters, postFlag: false, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
@@ -48,7 +48,7 @@ class ProductDetailsViewModel {
     }
     
     func addProductVariant(completion: @escaping () -> Void) {
-        networkService?.postData(path: "products/632910392/variants", parameters: variantParameters, postFlag: true, handler: { (response, error) in
+        networkService?.postData(path:"products/\(id)/variants", parameters: variantParameters, postFlag: true, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
                 completion()
