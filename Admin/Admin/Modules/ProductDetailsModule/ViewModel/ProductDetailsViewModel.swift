@@ -16,6 +16,7 @@ class ProductDetailsViewModel {
     var index = 0
     var id = 0
     var variantId = 0
+    var imageId = 0
     var ReloadCV : (()->Void) = {}
     var parameters: [String: Any] = [:]
     var quantityParameters: [String: Any] = [:]
@@ -57,5 +58,9 @@ class ProductDetailsViewModel {
                 completion()
             }
         })
+    }
+    
+    func deleteImage() {
+        networkService?.deleteData(path: "products/\(id)/images/\(imageId)")
     }
 }

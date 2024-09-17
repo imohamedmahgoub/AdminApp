@@ -31,23 +31,27 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var updateQuantityTextField: UITextField!
     @IBOutlet weak var editQuantityButtonOutlet: UIButton!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var editPriceOutlet: UIButton!
+    @IBOutlet weak var editQuantityOutlet: UIButton!
+    @IBOutlet weak var EditView: UIView!
+    @IBOutlet weak var deleteView: UIView!
+    @IBOutlet weak var singleImage: UIImageView!
+    @IBOutlet weak var ImageURLTextView: UITextView!
+    @IBOutlet weak var deleteOulet: UIButton!
+    @IBOutlet weak var cancelOulet: UIButton!
+    
     var viewModel = ProductDetailsViewModel()
     var index = 0
     var variantIndex = 0
     var variantItemId : Int = 0
     var selectedSizeIndex : Int? = nil
     var selectedColorIndex: Int? = nil
+    var imageIndex : IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCollectionViews()
+        setupViews()
         setupProductDetails(index: index)
-        guard let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-                layout.itemSize = UICollectionViewFlowLayout.automaticSize
-                layout.estimatedItemSize = CGSize(width: 20, height: 40)  
-        guard let layout = colorCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-                layout.itemSize = UICollectionViewFlowLayout.automaticSize
-                layout.estimatedItemSize = CGSize(width: 20, height: 40)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,7 +73,7 @@ class ProductDetailsViewController: UIViewController {
         viewModel.variantId = viewModel.productArray[ProductIndex ?? 0].variants?.first(where: {$0.position == variantIndex})?.id ?? 404
         print(viewModel.variantId)
     }
-    func setupCollectionViews() {
+    func setupViews() {
         imagesCollectionView.dataSource = self
         imagesCollectionView.delegate = self
         
@@ -79,7 +83,13 @@ class ProductDetailsViewController: UIViewController {
         colorCollectionView.dataSource = self
         colorCollectionView.delegate = self
         
-        //startAutoScroll()
+        guard let layout = sizeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: 20, height: 40)
+        guard let layout = colorCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = CGSize(width: 20, height: 40)
+        
         addVariantOutlet.layer.cornerRadius = 10.0
         addVariantOutlet.layer.borderWidth = 0.5
         addVariantOutlet.layer.borderColor = UIColor.cyan.cgColor
@@ -87,10 +97,31 @@ class ProductDetailsViewController: UIViewController {
         saveOutlet.layer.cornerRadius = 10.0
         saveOutlet.layer.borderWidth = 0.5
         saveOutlet.layer.borderColor = UIColor.red.cgColor
-
+        
         addVariantView.layer.cornerRadius = 10.0
         addVariantView.layer.borderWidth = 1.0
         addVariantView.layer.borderColor = UIColor.red.cgColor
+        
+        EditView.layer.cornerRadius = 10.0
+        EditView.layer.borderWidth = 1.0
+        EditView.layer.borderColor = UIColor.red.cgColor
+        
+        deleteView.layer.cornerRadius = 10.0
+        deleteView.layer.borderWidth = 1.0
+        deleteView.layer.borderColor = UIColor.red.cgColor
+        deleteView.isHidden = true
+        
+        singleImage.layer.cornerRadius = 10.0
+        
+        ImageURLTextView.layer.cornerRadius = 10.0
+        
+        deleteOulet.layer.cornerRadius = 10.0
+        deleteOulet.layer.borderWidth = 0.5
+        deleteOulet.layer.borderColor = UIColor.red.cgColor
+        
+        cancelOulet.layer.cornerRadius = 10.0
+        cancelOulet.layer.borderWidth = 0.5
+        cancelOulet.layer.borderColor = UIColor.blue.cgColor
         
         closeAddVariantViewOutlet.layer.cornerRadius = 10.0
         closeAddVariantViewOutlet.layer.borderWidth = 0.5
@@ -101,6 +132,22 @@ class ProductDetailsViewController: UIViewController {
         addVariantView.isHidden = true
         updatePriceTextField.isHidden = true
         updateQuantityTextField.isHidden = true
+    }
+    
+    @IBAction func didSelectDeleteImages(_ sender: Any) {
+        
+        deleteView.isHidden = false
+    }
+    
+    @IBAction func didSelectCancel(_ sender: Any) {
+        deleteView.isHidden = true
+    }
+    
+    @IBAction func didSelectDelete(_ sender: Any) {
+        viewModel.deleteImage()
+        viewModel.imagesArray.remove(at: imageIndex?.row ?? 0)
+        imagesCollectionView.reloadData()
+        deleteView.isHidden = true
     }
     
     @IBAction func didSelectAddVariant(_ sender: Any) {
@@ -119,7 +166,7 @@ class ProductDetailsViewController: UIViewController {
             "option2" : color,
             "price" : price
         ]
-    ]
+        ]
         viewModel.addProductVariant {
             DispatchQueue.main.async {
                 self.colorCollectionView.reloadData()
@@ -137,6 +184,8 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func didSelectEditPrice(_ sender: Any) {
+        editPriceOutlet.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+        
         if updatePriceTextField.isHidden == true {
             updatePriceTextField.isHidden = false
         }else{
@@ -159,6 +208,7 @@ class ProductDetailsViewController: UIViewController {
                 self.viewModel.updateProduct {
                     DispatchQueue.main.async {
                         self.updatePriceTextField.isHidden = true
+                        self.editPriceOutlet.setImage(UIImage(systemName: "pencil.line"), for: .normal)
                     }
                 }
             }
@@ -174,6 +224,7 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func didSelectEditQuantity(_ sender: Any) {
+        editQuantityOutlet.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
         if updateQuantityTextField.isHidden == true {
             updateQuantityTextField.isHidden = false
         }else{
@@ -189,6 +240,7 @@ class ProductDetailsViewController: UIViewController {
                 self.viewModel.updateProductQuantity() {
                     DispatchQueue.main.async {
                         self.updateQuantityTextField.isHidden = true
+                        self.editQuantityOutlet.setImage(UIImage(systemName: "pencil.line"), for: .normal)
                     }
                 }
             }
@@ -216,7 +268,6 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
         case sizeCollectionView :
             return viewModel.sizeArray.first?.values?.count ?? 0
         case colorCollectionView:
-
             return viewModel.colorArray.first?.values?.count ?? 7
         default:
             pageControl.numberOfPages = viewModel.imagesArray.count
@@ -244,6 +295,10 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             cell.productImage.clipsToBounds = true
             cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
             cell.productImage.layer.cornerRadius = 50.0
+            singleImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
+            ImageURLTextView.text = viewModel.imagesArray[indexPath.row].src
+            viewModel.imageId = viewModel.imagesArray[indexPath.row].id ?? 1
+            imageIndex = indexPath
             return cell
         }
     }
@@ -255,7 +310,7 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             pageControl.currentPage = currentPage
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case sizeCollectionView, colorCollectionView :
@@ -272,7 +327,7 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             } else {
                 selectedSizeIndex = indexPath.row
             }
-                        variantItemId = viewModel.productArray[index].variants?[indexPath.row].inventoryItemID ?? 0
+            variantItemId = viewModel.productArray[index].variants?[indexPath.row].inventoryItemID ?? 0
             productPriceLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].price ?? "")$"
             productQuantityLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].inventoryQuantity ?? 0) in Stock"
             
@@ -289,7 +344,6 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             productPriceLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].price ?? "")$"
             productQuantityLabel.text = "\(viewModel.productArray[index].variants?[indexPath.row].inventoryQuantity ?? 0) in Stock"
             colorCollectionView.reloadData()
-            
         default:
             break
         }
@@ -305,5 +359,4 @@ extension ProductDetailsViewController : UICollectionViewDelegate,UICollectionVi
             cell.layer.cornerRadius = 10.0
         }
     }
-    
 }
