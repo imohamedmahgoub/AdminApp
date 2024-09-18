@@ -69,4 +69,22 @@ class NetworkService: NetworkServiceProtocol{
             
         }
     }
+    
+    func getDraftOrders(path: String, parameters: Alamofire.Parameters, handler: @escaping (Data?, Error?) -> Void){
+        
+        AF.request("\(baseUrl)\(path).json",parameters: parameters, headers: headers1).validate().response{ response in
+            switch response.result {
+            case .success(let data):
+                handler(data,nil)
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+                if let data = response.data{
+                    handler(data,error)
+                }else{
+                    handler(nil,error)
+                }
+            }
+            
+        }
+    }
 }

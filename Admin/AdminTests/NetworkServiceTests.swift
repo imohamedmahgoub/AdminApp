@@ -199,5 +199,53 @@ class NetworkServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 5.0)
     }
+//    func testGetDraftOrdersSuccess() {
+//        // Set up mock data
+//        MockURLProtocol.responseData = """
+//        {
+//            "order": {
+//                "id": 12345,
+//                "status": "draft"
+//            }
+//        }
+//        """.data(using: .utf8)
+//        MockURLProtocol.statusCode = 200
+//        MockURLProtocol.error = nil
+//        
+//        let expectation = self.expectation(description: "Get Draft Orders Success")
+//        
+//        networkService.getDraftOrders(path:"draft_orders/12234", parameters: [:]) { data, error in
+//            XCTAssertNil(error)
+//            XCTAssertNotNil(data)
+//            // Validate the response
+//            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
+//            if let json = json as? [String: Any] {
+//                XCTAssertEqual((json["order"] as? [String: Any])?["status"] as? String, "draft")
+//            } else {
+//                XCTFail("Failed to parse response data")
+//            }
+//            expectation.fulfill()
+//        }
+//        
+//        wait(for: [expectation], timeout: 5.0)
+//    }
+    
+    func testGetDraftOrdersFailure() {
+        // Set up mock error
+        MockURLProtocol.responseData = nil
+        MockURLProtocol.error = NSError(domain: "Network Error", code: 500, userInfo: nil)
+        MockURLProtocol.statusCode = 500
+        
+        let expectation = self.expectation(description: "Get Draft Orders Failure")
+        
+        networkService.getDraftOrders(path: "orders", parameters: [:]) { result, error in
+            XCTAssertNotNil(result)
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+    }
+    
 }
 
