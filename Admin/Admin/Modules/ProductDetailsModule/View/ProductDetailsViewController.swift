@@ -234,7 +234,6 @@ class ProductDetailsViewController: UIViewController {
             else { return  }
             let alerrt = UIAlertController(title: "Updating Product's price", message: "Are you sure to save", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                print(self.viewModel.variantId)
                 self.viewModel.parameters = [
                     "variant" : [
                         "id": self.viewModel.variantId,

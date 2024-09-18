@@ -16,6 +16,10 @@
 		05556A462C87734A00055718 /* Internet Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A452C87734A00055718 /* Internet Connectivity.swift */; };
 		05556A4C2C87AED600055718 /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4B2C87AED600055718 /* AddProductViewController.swift */; };
 		05556A4E2C87BF2C00055718 /* AddProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */; };
+		055E00002C9B02F4008DEA25 /* ProductDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055EFFFF2C9B02F4008DEA25 /* ProductDetailsViewModelTests.swift */; };
+		055EFFF42C9AE7FB008DEA25 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055EFFF32C9AE7FB008DEA25 /* NetworkServiceTests.swift */; };
+		055EFFFB2C9AEF10008DEA25 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055EFFFA2C9AEF10008DEA25 /* MockURLProtocol.swift */; };
+		055EFFFE2C9AFFC6008DEA25 /* PriceRulesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055EFFFD2C9AFFC6008DEA25 /* PriceRulesViewModelTests.swift */; };
 		056B56862C85D782006D4348 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056B56852C85D782006D4348 /* ProductsViewController.swift */; };
 		056B56892C85D84C006D4348 /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056B56872C85D84C006D4348 /* ProductsTableViewCell.swift */; };
 		056B568A2C85D84C006D4348 /* ProductsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056B56882C85D84C006D4348 /* ProductsTableViewCell.xib */; };
@@ -54,6 +58,16 @@
 		05BC5D2C2C91F944009BEA0C /* DiscountCodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BC5D2B2C91F944009BEA0C /* DiscountCodesResponse.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		055EFFF52C9AE7FB008DEA25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 058412752C85113300347BFC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0584127C2C85113300347BFC;
+			remoteInfo = Admin;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		050F022B2C89D56300FC7030 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		050F022D2C89D57F00FC7030 /* ProductDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -64,6 +78,11 @@
 		05556A452C87734A00055718 /* Internet Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internet Connectivity.swift"; sourceTree = "<group>"; };
 		05556A4B2C87AED600055718 /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
 		05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewModel.swift; sourceTree = "<group>"; };
+		055EFFF12C9AE7FB008DEA25 /* AdminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		055EFFF32C9AE7FB008DEA25 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		055EFFFA2C9AEF10008DEA25 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		055EFFFD2C9AFFC6008DEA25 /* PriceRulesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRulesViewModelTests.swift; sourceTree = "<group>"; };
+		055EFFFF2C9B02F4008DEA25 /* ProductDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		056B56852C85D782006D4348 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		056B56872C85D84C006D4348 /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
 		056B56882C85D84C006D4348 /* ProductsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductsTableViewCell.xib; sourceTree = "<group>"; };
@@ -103,6 +122,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		055EFFEE2C9AE7FB008DEA25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0584127A2C85113300347BFC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,6 +200,25 @@
 				05556A4D2C87BF2C00055718 /* AddProductViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		055EFFF22C9AE7FB008DEA25 /* AdminTests */ = {
+			isa = PBXGroup;
+			children = (
+				055EFFFC2C9AFFA7008DEA25 /* Mock */,
+				055EFFF32C9AE7FB008DEA25 /* NetworkServiceTests.swift */,
+				055EFFFD2C9AFFC6008DEA25 /* PriceRulesViewModelTests.swift */,
+				055EFFFF2C9B02F4008DEA25 /* ProductDetailsViewModelTests.swift */,
+			);
+			path = AdminTests;
+			sourceTree = "<group>";
+		};
+		055EFFFC2C9AFFA7008DEA25 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				055EFFFA2C9AEF10008DEA25 /* MockURLProtocol.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		056B56822C85D738006D4348 /* ProductsModule */ = {
@@ -280,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				0584127F2C85113300347BFC /* Admin */,
+				055EFFF22C9AE7FB008DEA25 /* AdminTests */,
 				0584127E2C85113300347BFC /* Products */,
 				05F1A13D2C8CA1A300CFA51F /* Frameworks */,
 			);
@@ -289,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				0584127D2C85113300347BFC /* Admin.app */,
+				055EFFF12C9AE7FB008DEA25 /* AdminTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -473,6 +520,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		055EFFF02C9AE7FB008DEA25 /* AdminTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 055EFFF72C9AE7FB008DEA25 /* Build configuration list for PBXNativeTarget "AdminTests" */;
+			buildPhases = (
+				055EFFED2C9AE7FB008DEA25 /* Sources */,
+				055EFFEE2C9AE7FB008DEA25 /* Frameworks */,
+				055EFFEF2C9AE7FB008DEA25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				055EFFF62C9AE7FB008DEA25 /* PBXTargetDependency */,
+			);
+			name = AdminTests;
+			productName = AdminTests;
+			productReference = 055EFFF12C9AE7FB008DEA25 /* AdminTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0584127C2C85113300347BFC /* Admin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 058412912C85113500347BFC /* Build configuration list for PBXNativeTarget "Admin" */;
@@ -504,6 +569,10 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					055EFFF02C9AE7FB008DEA25 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 0584127C2C85113300347BFC;
+					};
 					0584127C2C85113300347BFC = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -529,11 +598,19 @@
 			projectRoot = "";
 			targets = (
 				0584127C2C85113300347BFC /* Admin */,
+				055EFFF02C9AE7FB008DEA25 /* AdminTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		055EFFEF2C9AE7FB008DEA25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0584127B2C85113300347BFC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -550,6 +627,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		055EFFED2C9AE7FB008DEA25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				055EFFFE2C9AFFC6008DEA25 /* PriceRulesViewModelTests.swift in Sources */,
+				055EFFF42C9AE7FB008DEA25 /* NetworkServiceTests.swift in Sources */,
+				055EFFFB2C9AEF10008DEA25 /* MockURLProtocol.swift in Sources */,
+				055E00002C9B02F4008DEA25 /* ProductDetailsViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		058412792C85113300347BFC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -596,6 +684,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		055EFFF62C9AE7FB008DEA25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0584127C2C85113300347BFC /* Admin */;
+			targetProxy = 055EFFF52C9AE7FB008DEA25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		058412862C85113300347BFC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -616,6 +712,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		055EFFF82C9AE7FB008DEA25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AdminTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Admin";
+			};
+			name = Debug;
+		};
+		055EFFF92C9AE7FB008DEA25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AdminTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Admin";
+			};
+			name = Release;
+		};
 		0584128F2C85113500347BFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -800,6 +938,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		055EFFF72C9AE7FB008DEA25 /* Build configuration list for PBXNativeTarget "AdminTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				055EFFF82C9AE7FB008DEA25 /* Debug */,
+				055EFFF92C9AE7FB008DEA25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		058412782C85113300347BFC /* Build configuration list for PBXProject "Admin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
