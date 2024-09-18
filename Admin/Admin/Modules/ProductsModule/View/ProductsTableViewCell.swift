@@ -25,7 +25,7 @@ class ProductsTableViewCell: UITableViewCell {
     private func setupCell() {
         self.layer.masksToBounds = false
         view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderColor = UIColor.mintGreen.cgColor
         view.layer.borderWidth = 0.3
         productImage.layer.cornerRadius = 20
         selectionStyle = .none

@@ -51,14 +51,14 @@ class PriceRulesViewController: UIViewController {
     func setupAddDiscountView() {
         addDiscountView.isHidden = true
         addDiscountView.layer.cornerRadius = 10.0
-        addDiscountView.layer.borderWidth = 1.0
-        addDiscountView.layer.borderColor = UIColor.red.cgColor
+        addDiscountView.layer.borderWidth = 1.5
+        addDiscountView.layer.borderColor = UIColor.mintGreen.cgColor
         cancelOutlet.layer.cornerRadius = 10.0
-        cancelOutlet.layer.borderWidth = 0.5
+        cancelOutlet.layer.borderWidth = 1.0
         cancelOutlet.layer.borderColor = UIColor.red.cgColor
         saveOutlet.layer.cornerRadius = 10.0
-        saveOutlet.layer.borderWidth = 0.5
-        saveOutlet.layer.borderColor = UIColor.red.cgColor
+        saveOutlet.layer.borderWidth = 1.0
+        saveOutlet.layer.borderColor = UIColor.mintGreen.cgColor
         fromDatePicker.minimumDate = Date()
         toDatePicker.minimumDate = Date()
     }
@@ -151,7 +151,7 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
     }
     func updateCellAppearance(cell: UITableViewCell) {
         cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.cyan.cgColor
+        cell.layer.borderColor = UIColor.mintGreen.cgColor
         cell.layer.cornerRadius = 40.0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

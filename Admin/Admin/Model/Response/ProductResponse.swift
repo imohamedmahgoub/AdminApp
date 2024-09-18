@@ -20,7 +20,7 @@ struct Product: Codable {
     let publishedScope: String?
     let tags: String?
     let status: String?
-    let variants: [Variant]?
+    var variants: [Variant]?
     let options: [Option]?
     let images: [Image]?
     let image: Image?

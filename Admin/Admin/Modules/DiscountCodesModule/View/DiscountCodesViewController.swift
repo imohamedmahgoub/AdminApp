@@ -27,16 +27,16 @@ class DiscountCodesViewController: UIViewController{
     func setuoAddDiscountView() {
         addDiscountView.isHidden = true
         addDiscountView.layer.cornerRadius = 10.0
-        addDiscountView.layer.borderWidth = 1.0
-        addDiscountView.layer.borderColor = UIColor.red.cgColor
+        addDiscountView.layer.borderWidth = 1.5
+        addDiscountView.layer.borderColor = UIColor.mintGreen.cgColor
         
         saveOutlet.layer.cornerRadius = 10.0
-        saveOutlet.layer.borderColor = UIColor.red.cgColor
-        saveOutlet.layer.borderWidth = 0.5
+        saveOutlet.layer.borderColor = UIColor.mintGreen.cgColor
+        saveOutlet.layer.borderWidth = 1.0
         
         cancelOutlet.layer.cornerRadius = 10.0
         cancelOutlet.layer.borderColor = UIColor.red.cgColor
-        cancelOutlet.layer.borderWidth = 0.5
+        cancelOutlet.layer.borderWidth = 1.0
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -107,6 +107,6 @@ extension DiscountCodesViewController : UITableViewDataSource, UITableViewDelega
     func setupCell (cell : UITableViewCell) {
         cell.layer.cornerRadius = 20.0
         cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.mintGreen.cgColor
     }
 }

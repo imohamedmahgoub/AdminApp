@@ -22,6 +22,8 @@ class AddProductViewController: UIViewController {
     @IBOutlet weak var addColorTextField: UITextField!
     @IBOutlet weak var saveOutlet: UIButton!
     @IBOutlet weak var nextView: UIView!
+    @IBOutlet weak var cancelOutlet: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         vendorTextField.text = viewModel.vendor
@@ -36,6 +38,10 @@ class AddProductViewController: UIViewController {
     }
     @objc func nextPage(){
         nextView.isHidden = false
+    }
+    
+    @IBAction func didSelectCancel(_ sender: Any) {
+        nextView.isHidden = true
     }
     @IBAction func didSelectSave(_ sender: Any) {
         guard let title = titleTextField.text, !title.isEmpty,
@@ -55,16 +61,6 @@ class AddProductViewController: UIViewController {
             self.present(alert, animated: true)
             return
         }
-        let variant1 = Variant(id: nil, productID: nil, title: nil, price: price, position: nil, option1: color[0], option2: size[0], inventoryItemID: nil, inventoryQuantity: Int(quantity) ?? 0, oldInventoryQuantity: nil)
-        
-        let variant2 = Variant(id: nil, productID: nil, title: nil, price: price, position: nil, option1: color[1], option2: size[1], inventoryItemID: nil, inventoryQuantity: Int(quantity) ?? 0, oldInventoryQuantity: nil)
-        let option1 = Option(id: nil, productID: nil, name: .size, position: nil, values: size)
-        let option2 = Option(id: nil, productID: nil, name: .color, position: nil, values: color)
-        let images = Image(id: nil, position: nil, productID: nil, src: "\(imageUrl)")
-        
-        let product = Product(id: nil, title: title, bodyHTML: description, vendor: vendor, productType: productType, publishedScope: nil, tags: tag, status: "active", variants: [variant1,variant2], options: [option1,option2], images: [images], image: nil)
-        
-        _ = try? JSONEncoder().encode(product)
         viewModel.parameters = ["product" : [
             "title": title,
             "vendor": vendor,
@@ -108,11 +104,17 @@ class AddProductViewController: UIViewController {
     func setupView() {
         nextView.isHidden = true
         nextView.layer.cornerRadius = 10.0
-        nextView.layer.borderColor = UIColor.red.cgColor
-        nextView.layer.borderWidth = 1.0
+        nextView.layer.borderColor = UIColor.mintGreen.cgColor
+        nextView.layer.borderWidth = 1.5
+        
         saveOutlet.layer.cornerRadius = 10.0
-        saveOutlet.layer.borderColor = UIColor.red.cgColor
-        saveOutlet.layer.borderWidth = 0.5
+        saveOutlet.layer.borderColor = UIColor.mintGreen.cgColor
+        saveOutlet.layer.borderWidth = 1.0
+        
+        cancelOutlet.layer.cornerRadius = 10.0
+        cancelOutlet.layer.borderColor = UIColor.red.cgColor
+        cancelOutlet.layer.borderWidth = 1.0
+        
         descriptionTextView.layer.cornerRadius = 10.0
     }
 }

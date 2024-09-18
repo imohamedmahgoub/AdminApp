@@ -69,7 +69,7 @@ extension InventoyViewController : UITableViewDelegate ,UITableViewDataSource {
     func setupCell (cell : UITableViewCell) {
         cell.layer.cornerRadius = 20.0
         cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderColor = UIColor.mintGreen.cgColor
     }
      
     

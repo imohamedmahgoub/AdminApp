@@ -26,6 +26,7 @@ class ProductDetailsViewModel {
      }
     
     func updateProduct(completion: @escaping () -> Void) {
+        print(variantId)
         networkService?.postData(path:"variants/\(variantId)", parameters: parameters, postFlag: false, handler: { (response, error) in
             if let error = error {
                 print("Error Upload data: \(error.localizedDescription)")
@@ -62,5 +63,9 @@ class ProductDetailsViewModel {
     
     func deleteImage() {
         networkService?.deleteData(path: "products/\(id)/images/\(imageId)")
+    }
+    
+    func deleteVaiant(){
+        networkService?.deleteData(path: "products/\(id)/variants/\(variantId)")
     }
 }

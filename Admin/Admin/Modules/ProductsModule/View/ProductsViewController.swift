@@ -61,7 +61,7 @@ extension ProductsViewController : UITableViewDelegate , UITableViewDataSource {
         cell.productImage.kf.setImage(with: url,placeholder: UIImage(named: "noimage"))
         cell.productVersionLabel.text = viewModel.productArray[indexPath.row].title
         cell.productCompany.text = "\(viewModel.productArray[indexPath.row].vendor ?? ""), \(viewModel.productArray[indexPath.row].productType ?? "")"
-        cell.productPrice.text = "\(viewModel.productArray[indexPath.row].variants?.first?.price ?? "") $"
+        cell.productPrice.text = "\(viewModel.productArray[indexPath.row].variants?.first?.price ?? "") EGP"
         cell.productQuantity.text = "\(viewModel.productArray[indexPath.row].variants?.first?.inventoryQuantity ?? 10) in Stock"
         
         return cell

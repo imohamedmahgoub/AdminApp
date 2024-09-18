@@ -17,8 +17,8 @@ class SigninViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInOutlet.layer.cornerRadius = 10.0
-        signInOutlet.layer.borderWidth = 0.5
-        signInOutlet.layer.borderColor = UIColor.red.cgColor
+        signInOutlet.layer.borderWidth = 1.0
+        signInOutlet.layer.borderColor = UIColor.mintGreen.cgColor
     }
     
     @IBAction func didSelectSignin(_ sender: Any) {
