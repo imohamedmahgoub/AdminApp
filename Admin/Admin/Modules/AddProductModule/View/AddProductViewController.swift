@@ -64,7 +64,7 @@ class AddProductViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = viewModel.vendor
-        let saveButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(didSelectSave))
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(didSelectSave))
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -203,7 +203,6 @@ extension AddProductViewController : UITableViewDelegate , UITableViewDataSource
             cell.textLabel?.text = typesArray[indexPath.row]
             return cell
         }
-
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -253,7 +252,4 @@ extension AddProductViewController : UICollectionViewDelegate,UICollectionViewDa
          
          addImageCollectionVew.deleteItems(at: [IndexPath(row: index, section: 0)])
      }
-    
-    
-    
 }

@@ -11,7 +11,7 @@ class SigninViewController: UIViewController {
     @IBOutlet weak var showPasswordButtonOutlet: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var signInOutlet: UIButton!
+    @IBOutlet weak var signInOutlet: UIButton!    
     let username = "Admin"
     let password = "admin"
     override func viewDidLoad() {
@@ -19,6 +19,7 @@ class SigninViewController: UIViewController {
         signInOutlet.layer.cornerRadius = 10.0
         signInOutlet.layer.borderWidth = 1.0
         signInOutlet.layer.borderColor = UIColor.mintGreen.cgColor
+        
     }
     
     @IBAction func didSelectSignin(_ sender: Any) {

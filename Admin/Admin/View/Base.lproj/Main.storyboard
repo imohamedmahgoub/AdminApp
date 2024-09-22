@@ -62,6 +62,17 @@
                                     <action selector="didSelectShowPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Mo-ZP-ByX"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCq-To-5rH">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="368"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logImage" translatesAutoresizingMaskIntoConstraints="NO" id="cxR-OG-nR0">
+                                        <rect key="frame" x="20" y="63" width="353" height="278"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.49411764740000003" green="0.7607843876" blue="0.65882354970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="white1"/>
@@ -94,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4502" y="-18"/>
+            <point key="canvasLocation" x="4501.5267175572517" y="-18.30985915492958"/>
         </scene>
         <!--Brands-->
         <scene sceneID="PJf-C9-9j8">
@@ -1842,6 +1853,7 @@
         <image name="end" width="767" height="998"/>
         <image name="eye.slash" catalog="system" width="128" height="95"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
+        <image name="logImage" width="500" height="500"/>
         <image name="max" width="503" height="439"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.line" catalog="system" width="128" height="117"/>
