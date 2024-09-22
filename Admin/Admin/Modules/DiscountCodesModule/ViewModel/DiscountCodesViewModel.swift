@@ -41,8 +41,7 @@ class DiscountCodesViewModel {
         })
     }
     
-    func deleteDiscountCode(){
-        print(id)
-        networkService?.deleteData(path: "price_rules/\(id)/discount_codes/\(id)")
+    func deleteDiscountCode(idOfDiscout : Int){
+        networkService?.deleteData(path: "price_rules/\(id)/discount_codes/\(idOfDiscout)")
     }
 }

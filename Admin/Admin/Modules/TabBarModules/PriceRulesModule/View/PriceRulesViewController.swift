@@ -29,7 +29,6 @@ class PriceRulesViewController: UIViewController {
         indicator.startAnimating()
         view.addSubview(indicator)
         setupAddDiscountView()
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,8 +65,7 @@ class PriceRulesViewController: UIViewController {
     @IBAction func didSelectAddDiscount(_ sender: Any) {
         addDiscountView.isHidden = false
     }
-    @objc
-    func addDiscount() {
+    @objc func addDiscount() {
         addDiscountView.isHidden = false
     }
     
@@ -89,29 +87,41 @@ class PriceRulesViewController: UIViewController {
         let prerequisiteQuantity = miniSubtotalTextField.text ?? "0"
         let allocationLimit = Int(usageLimitsTextField.text ?? "0") ?? 0
         
-        viewModel.parameters = [
-            "price_rule": [
-                "title": title,
-                "target_type": "line_item",
-                "target_selection": "all",
-                "allocation_method": "across",
-                "value_type": typeSegmentedControl.selectedSegmentIndex == 0 ? "percentage":"fixed_amount",
-                "value": value,
-                "customer_selection": "all",
-                "starts_at": startsAt,
-                "ends_at" : endsAt,
-                "usage_limit" : allocationLimit,
-                "prerequisite_subtotal_range" : [
-                    "greater_than_or_equal_to" : prerequisiteQuantity
+        let integerValue = Int(value) ?? 0
+        let integerprerequisiteQuantity = Int(prerequisiteQuantity) ?? 0
+        
+        if ((title != "") && (integerValue < 0) && (integerprerequisiteQuantity > -1 * integerValue) && (allocationLimit > 0)){
+            
+            viewModel.parameters = [
+                "price_rule": [
+                    "title": title,
+                    "target_type": "line_item",
+                    "target_selection": "all",
+                    "allocation_method": "across",
+                    "value_type": typeSegmentedControl.selectedSegmentIndex == 0 ? "percentage":"fixed_amount",
+                    "value": value,
+                    "customer_selection": "all",
+                    "starts_at": startsAt,
+                    "ends_at" : endsAt,
+                    "usage_limit" : allocationLimit,
+                    "prerequisite_subtotal_range" : [
+                        "greater_than_or_equal_to" : prerequisiteQuantity
+                    ]
                 ]
             ]
-        ]
-        
-        viewModel.addDiscout {
-            DispatchQueue.main.async {
-                self.addDiscountView.isHidden = true
-                self.tableView.reloadData()
+            viewModel.addDiscout {
+                DispatchQueue.main.async {
+                    self.addDiscountView.isHidden = true
+                    self.viewModel.getDiscout {
+                        self.tableView.reloadData()
+                    }
+                }
             }
+        }else{
+            let alert = UIAlertController(title: "Validation Error", message: "Please Enter data in a correct way", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .destructive)
+            alert.addAction(dismissAction)
+            self.present(alert, animated: true)
         }
     }
 }
@@ -145,6 +155,7 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
             self.viewModel.deleteDiscount(discountId: discount.id ?? 0)
             self.viewModel.priceRulesArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            self.navigationController?.popViewController(animated: true)
         }
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -163,23 +174,19 @@ extension PriceRulesViewController : UITableViewDelegate, UITableViewDataSource 
 }
 extension PriceRulesViewController {
     func transformDateWithAddedHours(_ dateString: String, hoursToAdd: Int) -> String? {
-        
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX"
         inputFormatter.locale = Locale(identifier: "en_US_POSIX")
         guard let date = inputFormatter.date(from: dateString) else {
             return nil
         }
-        
         let calendar = Calendar.current
         guard let newDate = calendar.date(byAdding: .hour, value: hoursToAdd, to: date) else {
             return nil
         }
-        
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "yyyy-MM-dd h:mm a"
         let outputString = outputFormatter.string(from: newDate)
         return outputString
     }
-    
 }

@@ -22,12 +22,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logImage" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-ij-Nms">
+                                <rect key="frame" x="0.0" y="159" width="393" height="559"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="mintGreen"/>
                         <constraints>
                             <constraint firstItem="Jwb-LF-Zbx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="XQA-jj-wgn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bxJ-ij-Nms" secondAttribute="trailing" id="aND-Kf-Z0R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jwb-LF-Zbx" secondAttribute="trailing" constant="16" id="av8-eG-H2w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bxJ-ij-Nms" secondAttribute="bottom" constant="100" id="qBY-E9-aCN"/>
+                            <constraint firstItem="bxJ-ij-Nms" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="u0N-Xq-Q2Q"/>
+                            <constraint firstItem="bxJ-ij-Nms" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uAc-Ag-i9N"/>
                             <constraint firstItem="Jwb-LF-Zbx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="yem-dT-7dh"/>
                         </constraints>
                     </view>
@@ -38,6 +45,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="logImage" width="500" height="500"/>
         <namedColor name="mintGreen">
             <color red="0.40200001001358032" green="0.76700001955032349" blue="0.65499997138977051" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

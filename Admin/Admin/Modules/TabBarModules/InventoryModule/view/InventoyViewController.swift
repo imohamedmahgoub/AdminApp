@@ -27,7 +27,7 @@ class InventoyViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.title = "Branshes"
+        self.tabBarController?.title = "Branches"
         self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
         
         viewModel.getLocationData {

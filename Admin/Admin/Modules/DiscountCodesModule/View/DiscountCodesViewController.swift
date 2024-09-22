@@ -71,8 +71,13 @@ class DiscountCodesViewController: UIViewController{
         ]
         viewModel.createAdiscountCode {
             DispatchQueue.main.async {
-                self.tableView.reloadData()
                 self.addDiscountView.isHidden = true
+                self.viewModel.getDicountCodes {
+                    if self.viewModel.discountCodesArray.count > 0 {
+                        self.tableView.isHidden = false
+                    }
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -97,9 +102,13 @@ extension DiscountCodesViewController : UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
-            self.viewModel.deleteDiscountCode()
+            let idOfDiscout = self.viewModel.discountCodesArray[indexPath.row].id
+            self.viewModel.deleteDiscountCode(idOfDiscout: idOfDiscout ?? 0)
             self.viewModel.discountCodesArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            if self.viewModel.discountCodesArray.count == 0 {
+                self.tableView.isHidden = true
+            }
         }
         deleteAction.image = UIImage(systemName: "trash")
         return UISwipeActionsConfiguration(actions: [deleteAction])

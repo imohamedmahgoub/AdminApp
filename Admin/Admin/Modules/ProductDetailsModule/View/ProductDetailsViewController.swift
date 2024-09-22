@@ -40,6 +40,7 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var deleteOulet: UIButton!
     @IBOutlet weak var cancelOulet: UIButton!
     @IBOutlet weak var delVariantOutlet: UIButton!
+    @IBOutlet weak var deleteImage: UIButton!
     
     var viewModel = ProductDetailsViewModel()
     var index = 0
@@ -54,6 +55,11 @@ class ProductDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupProductDetails(index: index)
+        
+        if viewModel.imagesArray.count == 0 {
+            deleteImage.isHidden = true
+            deleteView.isHidden = true
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,7 +72,7 @@ class ProductDetailsViewController: UIViewController {
     func setupProductDetails(index : Int) {
         productTitle.text = viewModel.productArray[index].title
         productBrand.text = "\(viewModel.productArray[index].vendor ?? ""), \(viewModel.productArray[index].productType ?? "")"
-        productPriceLabel.text = "\(viewModel.productArray[index].variants?[variantItemId].price ?? "")$"
+        productPriceLabel.text = "\(viewModel.productArray[index].variants?[variantItemId].price ?? "")EGP"
         productQuantityLabel.text = "\(viewModel.productArray[index].variants?.first?.inventoryQuantity ?? 0) in Stock"
         descriptionTextView.text = viewModel.productArray[index].bodyHTML
         viewModel.id = viewModel.productArray[index].id ?? 0
@@ -140,8 +146,6 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func didSelectDeleteVariant(_ sender: Any) {
-        
-    
       if selectedSizeIndex != nil{
           let alert = UIAlertController(title: "Delete a Variant", message: "Are you sure?", preferredStyle: .alert)
           let okAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
@@ -185,10 +189,12 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func didSelectDelete(_ sender: Any) {
-        viewModel.deleteImage()
-        viewModel.imagesArray.remove(at: imageIndex?.row ?? 0)
-        imagesCollectionView.reloadData()
-        deleteView.isHidden = true
+        if viewModel.imagesArray.count != 0{
+            viewModel.deleteImage()
+            viewModel.imagesArray.remove(at: imageIndex?.row ?? 0)
+            imagesCollectionView.reloadData()
+            deleteView.isHidden = true
+        }
     }
     
     @IBAction func didSelectAddVariant(_ sender: Any) {
@@ -201,27 +207,32 @@ class ProductDetailsViewController: UIViewController {
         let price = addPriceTextField.text ?? "100.00"
         let quantity = Int(addQuantityTextField.text ?? "" ) ?? 10
         
-        viewModel.variantParameters = ["variant" : [
-            "product_id" : viewModel.id,
-            "option1" : size,
-            "option2" : color,
-            "price" : price
-        ]
-        ]
-        viewModel.addProductVariant {
-            DispatchQueue.main.async {
-                self.addVariantView.isHidden = true
+        if ((Int(size) ?? 0 > 0) && (Int(price) ?? 0 > 0) && (quantity >= 0)){
+            viewModel.variantParameters = ["variant" : [
+                "product_id" : viewModel.id,
+                "option1" : color,
+                "option2" : size,
+                "price" : price
+            ]
+            ]
+            viewModel.addProductVariant {
+                DispatchQueue.main.async {
+                    self.addVariantView.isHidden = true
+                }
             }
+            viewModel.quantityParameters = [
+                "location_id": 72712781961,
+                "inventory_item_id": self.variantItemId,
+                "available": quantity
+            ]
+            viewModel.updateProductQuantity {
+            }
+        }else {
+            let alert = UIAlertController(title: "Validation Error", message: "Please Enter data in a correct way", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .destructive)
+            alert.addAction(dismissAction)
+            self.present(alert, animated: true)
         }
-        viewModel.quantityParameters = [
-            "location_id": 72712781961,
-            "inventory_item_id": self.variantItemId,
-            "available": quantity
-        ]
-        viewModel.updateProductQuantity {
-        }
-        colorCollectionView.reloadData()
-        sizeCollectionView.reloadData()
     }
     
     @IBAction func didSelectEditPrice(_ sender: Any) {
